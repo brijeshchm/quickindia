@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;  
+use Illuminate\Support\Facades\Input;
+use App\Models\Blogdetails;
+use Image;
+use Mail;
+ 
+class EmailController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *	
+     * @return void
+     */
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+		 $template = 'emails.email-connected';
+	 
+				$client="Students";
+			$check=  Mail::send($template, ['client'=>$client], function ($m) use ($client) {   
+         
+            $m->from('info@quickindia.in', 'Quickindia');             
+            //$client->email
+            $m->to('infon@quickindia.in', '')->subject('Learning course');
+        });	 
+		if($check){
+			echo "Success";
+		}			
+		 
+        
+    } 
+ 
+	
+	 
+}
