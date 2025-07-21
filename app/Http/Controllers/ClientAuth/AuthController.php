@@ -189,10 +189,10 @@ class AuthController extends Controller
 			 
 			$message = "{$otp} is QuickIndia Verification Code for {$request->session()->get('client.email')} .";
 			$subject = "{$otp} is QuickIndia Verification Code";
-			// Mail::send('emails.sendotp_to_email', ['msg'=>$message], function ($m) use ($message,$request,$subject) {
-			// 	$m->from('info@quickindia.in', 'Login OTP');
-			// 	$m->to($request->input('email'), "")->subject($subject);
-			// });	
+			Mail::send('emails.sendotp_to_email', ['msg'=>$message], function ($m) use ($message,$request,$subject) {
+				$m->from('info@quickindia.in', 'Login OTP');
+				$m->to($request->input('email'), "")->subject($subject);
+			});	
 		 
 		 
 		 

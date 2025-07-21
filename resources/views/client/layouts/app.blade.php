@@ -63,28 +63,30 @@
 
 
 <!-- SCRIPT-SPINNER -->  
-<script src="<?php echo asset('public/vendor/spinner/spin.min.js') ?>" async></script>	
+<script src="<?php echo asset('vendor/spinner/spin.min.js') ?>" async></script>	
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
-<link href="<?php echo asset('public/client/css/bootstrap.css'); ?>" rel="stylesheet"> 
-<link href="<?php echo asset('public/vendor/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
-<link href="<?php echo asset('public/client/customfont/stylesheet.css'); ?>" rel="stylesheet">
-<link href="<?php echo asset('public/vendor/select2/css/select2.min.css'); ?>" rel="stylesheet">
-<link href="<?php echo asset('public/vendor/select2/css/select2-bootstrap.css'); ?>" rel="stylesheet">
-<link href="<?php echo asset('public/admin/vendor/datatables-plugins/dataTables.bootstrap.css'); ?>" rel="stylesheet">
+<link href="<?php echo asset('client/css/bootstrap.css'); ?>" rel="stylesheet"> 
+<link href="<?php echo asset('vendor/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
+<link href="<?php echo asset('client/customfont/stylesheet.css'); ?>" rel="stylesheet">
+<link href="<?php echo asset('vendor/select2/css/select2.min.css'); ?>" rel="stylesheet">
+<link href="<?php echo asset('vendor/select2/css/select2-bootstrap.css'); ?>" rel="stylesheet">
+<link href="<?php echo asset('admin/vendor/datatables-plugins/dataTables.bootstrap.css'); ?>" rel="stylesheet">
 
-<link href="<?php echo asset('public/admin/vendor/datatables-responsive/dataTables.responsive.css'); ?>" rel="stylesheet">
+<link href="<?php echo asset('admin/vendor/datatables-responsive/dataTables.responsive.css'); ?>" rel="stylesheet">
 
-<script type="text/javascript" src="<?php echo asset('public/client/js/jquery-1.11.2.min.js'); ?>" ></script>
-<script type="text/javascript" src="<?php echo asset('public/client/js/jquery.galleriffic.js'); ?>" ></script>
-<script type="text/javascript" src="<?php echo asset('public/client/js/jquery.opacityrollover.js'); ?>" ></script>
-<script type="text/javascript" src="<?php echo asset('public/client/js/bootstrap.min.js'); ?>" ></script>
+<script type="text/javascript" src="<?php echo asset('client/js/jquery-1.11.2.min.js'); ?>" ></script>
+<script type="text/javascript" src="<?php echo asset('client/js/jquery.galleriffic.js'); ?>" ></script>
+<script type="text/javascript" src="<?php echo asset('client/js/jquery.opacityrollover.js'); ?>" ></script>
+<script type="text/javascript" src="<?php echo asset('client/js/bootstrap.min.js'); ?>" ></script>
   
 <link href="<?php echo asset('client/css/style.css'); ?>" rel="stylesheet">
+ 
 <link rel="stylesheet" href="<?php echo asset('public/client/css/owl.carousel.css'); ?>">
 <link rel="stylesheet" href="<?php echo asset('public/client/css/galleriffic-1.css'); ?>" type="text/css" />
 <link href="<?php echo asset('public/client/css/login-popup.css'); ?>" rel="stylesheet">
 <link href="<?php echo asset('public/client/css/media.css'); ?>" rel="stylesheet">
+ 
 <!------Google Analytic Script Start----->
  
  
@@ -124,49 +126,6 @@
 </script>
 
 
-
- <script>
-    const apiKey = '3ad5f90d651b46f6877197d1c64b2129';
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        const {latitude,longitude} = position.coords;
-        console.log(latitude);
-        console.log(longitude);
-        const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
-
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
-          
-               
-            $('.cityList').html('<option value="' + data.results[0].components._normalized_city.toLowerCase() + '" selected>' + data.results[0].components._normalized_city + '</option>');
- 
-             $("input[name='city_id']").val(data.results[0].components._normalized_city.toLowerCase());
-          })
-          .catch(error => {
-           
-          });
-      }, function(error) {
-        
-      });
-    }else{
-        
-        $.ajax({
-        url: "https://geolocation-db.com/jsonp",
-        jsonpCallback: "callback",
-        dataType: "jsonp",
-        success: function(location) {
-        console.log(location);
-        
-        $('.cityList').html('<option value="' + location.city.toLowerCase() + '" selected>' + location.city + '</option>');
-        
-        $("input[name='city_id']").val(location.city.toLowerCase());
-        }
-        });
-        
-    }
-    
-   </script>
 </head>
 
 <body>    <!-- SPINNER -->    
@@ -180,11 +139,7 @@
                     <a href="{{url('/')}}"><img src="<?php echo asset('client/images/logo.png'); ?>" alt="Quick india" class="img-responsive" /></a> 
                 </h1>
             </div>
-           <!-- <div class="logo-sm">
-                <h1 title="quickind">
-                    <a href=""><img src="<?php echo asset('client/images/logo.png'); ?>" alt="Quick india" class="img-responsive" /></a> 
-                </h1>
-            </div>-->
+     
 		 
 			<?php 
 		 
@@ -254,11 +209,7 @@
     </header>
      <div class="scrollheadsearch<?php echo (Route::getCurrentRoute()->uri() != '/')?' fixedform':''; ?>">
 		<div class="filterForm"> 
-		<?php 
-		
-			$citiesList= DB::table('citylists')->select('id','city')->orderby('city','desc')->get();
 		 
-			?>
 				<form action="/searchlist" method="GET" class="search-form" autocomplete="off">
 				    
 				    <input type="text" class="col-md-3  serviceneed location locationbtn city cityList" name="city">
@@ -708,16 +659,16 @@ searchInputs[i].value = '';
 </div> 
 
  <div id="messagemodel" class="modal fade" role="dialog" data-backdrop="static"><div class="modal-dialog"><div class="modal-content"><div class="modal-body" style="padding:0;"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; right: 4px; top: 4px;opacity: 1; width: 35px; height: 35px; background: #fff; border-radius: 0 0 0 10px;"><span aria-hidden="true">×</span></button><div class="imgclass"></div><h3 style="text-align: center; font-size: 21px; font-weight: 600; margin-top: 16px;">Thank you for reaching out to us.</h3><div class="successhtml"></div><div class="failedhtml"></div><div style="text-align:center;"></div></div></div></div></div>
-<script src="<?php echo asset('public/vendor/select2/js/select2.full.js'); ?>"></script>
+<script src="<?php echo asset('vendor/select2/js/select2.full.js'); ?>"></script>
 
-<script src="<?php echo asset('public/admin/vendor/datatables/js/jquery.dataTables.min.js'); ?>"></script>
-<script src="<?php echo asset('public/admin/vendor/datatables-plugins/dataTables.bootstrap.min.js'); ?>"></script>
-<script src="<?php echo asset('public/admin/vendor/datatables-responsive/dataTables.responsive.js'); ?>"></script>
+<script src="<?php echo asset('admin/vendor/datatables/js/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?php echo asset('admin/vendor/datatables-plugins/dataTables.bootstrap.min.js'); ?>"></script>
+<script src="<?php echo asset('admin/vendor/datatables-responsive/dataTables.responsive.js'); ?>"></script>
 
-<script src="<?php echo asset('public/vendor/validation/validation.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/client/js/plugin.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/client/js/script.js'); ?>"></script>
-<script src="<?php echo asset('public/client/js/owl.carousel.js'); ?>"></script>
+<script src="<?php echo asset('vendor/validation/validation.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo asset('client/js/plugin.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo asset('client/js/script.js'); ?>"></script>
+<script src="<?php echo asset('client/js/owl.carousel.js'); ?>"></script>
 <script>
     jQuery(document).ready(function() {
         jQuery('.owl-carousel').owlCarousel({
@@ -956,10 +907,33 @@ searchInputs[i].value = '';
         maximumSelectionSize: 6,
         containerCssClass: ":all:"
     });
-    
+    if(localStorage.getItem('city')){
         $('.cityList').val(localStorage.getItem('city'));
-        $("input[name='city_id']").val(localStorage.getItem('city'));
-        $('.home-search').val(localStorage.getItem('keyword'));
+    }else{
+        const apiKey = '3ad5f90d651b46f6877197d1c64b2129';
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const {latitude,longitude} = position.coords;
+            console.log(latitude);
+            console.log(longitude);
+            const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
+
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {          
+                $(".cityList").val(data.results[0].components._normalized_city.toLowerCase());
+            })
+            .catch(error => {
+            
+            });
+        }, function(error) {
+            
+        });
+        }
+    }
+    $('.home-search').val(localStorage.getItem('keyword'));
+
+   
 </script>
 
    

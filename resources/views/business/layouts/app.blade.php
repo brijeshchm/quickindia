@@ -32,11 +32,38 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
+ <?php  
+    $clientID = auth()->guard('clients')->user()->id;
 
+    $client = App\Models\Client\Client::find($clientID); 
+
+		$leads = DB::table('leads')
+				   ->join('assigned_leads','leads.id','=','assigned_leads.lead_id')				  
+				   ->select('leads.*','assigned_leads.client_id','assigned_leads.lead_id','assigned_leads.created_at as created')				 
+				   
+				   ->orderBy('assigned_leads.created_at','desc')
+				   ->where('assigned_leads.readLead','0')
+				   ->where('assigned_leads.client_id',$clientID)->get()->count();
+    
+
+     ?>
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{url('business/dashboard')}}" class="logo d-flex align-items-center">
+        <?php  
+        			if(!empty($client->logo)){
+								$logo = unserialize($client->logo);
+								if(!isset($logo['thumbnail'])){
+									$logo['thumbnail'] = $logo['large'];
+								}								
+								$image = $logo['large']['src'];
+        ?>
+
+        <?php  }else{ ?>
+         <img src="{{asset($image)}}" alt="">
+        <?php 
+        }  ?>
         <img src="{{asset('client/images/quickind-logo-blue.png')}}" alt="">
-        <span class="d-none d-lg-block">Quick India</span>
+        <span class="d-none d-lg-block">{{ $client->business_name ?? 'Quick India' }}</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -132,14 +159,14 @@
  
 <div class="patti-header">
     <div class="info-head">
-        <div class="package"><a href="{{ url('business/package')}}">Platinum</a></div>
-        <div class="expire">Expire: 26-7-2026</div>
+        <div class="package"><a href="{{ url('business/package')}}">{{ $client->client_type ?? '' }}  </a></div>
+        <div class="expire">Expire: {{ date('d M, Y',strtotime($client->expired_on)) ?? '' }}</div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-            <label class="form-check-label" for="flexSwitchCheckChecked">Lead Push</label>
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  value="{{ $client->pauseLead??'' }}" data-client-id="{{ $client->id }}" @if(!empty($client->pauseLead)) {{ "checked"}} @endif>
+            <label class="form-check-label" for="flexSwitchCheckChecked">Pause Lead </label>
         </div>
-        <div class="remain-code">Remaining Cons: 1200</div>
-        <div class="new-lead">New Lead:<a href="{{ url('business/new-enquiry') }}"> <span class="bell"><i class="bi bi-envelope"></i> 4</span></a></div>
+        <div class="remain-code">Remaining Cons: {{ $client->coins_amt ?? '' }}</div>
+        <div class="new-lead">New Lead:<a href="{{ url('business/new-enquiry') }}"> <span class="bell"><i class="bi bi-envelope"></i> {{ $leads??''}}</span></a></div>
     </div>
     <div class="notifi">
         
@@ -242,10 +269,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">  #
            
-              <?php $clientID = auth()->guard('clients')->user()->id;
-           
-    	      $client = App\Models\Client\Client::find($clientID); 
-     
+              <?php
     	 
 							 
 							if(!empty($client->logo)){
@@ -270,7 +294,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{ auth()->guard('clients')->user()->business_name }} dd</h6>
+              <h6>{{ auth()->guard('clients')->user()->business_name }} </h6>
               
             </li>
             <li>

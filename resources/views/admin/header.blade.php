@@ -10,45 +10,45 @@
 	<meta name="csrf-token" content="<?php echo csrf_token(); ?>">
     <title>Quick india</title>
 	 <!-- SCRIPT-ANGULAR-JS -->
-    <script src="<?php echo asset('public/admin/node_modules/angular/angular.min.js') ?>"></script>
+    <script src="<?php echo asset('admin/node_modules/angular/angular.min.js') ?>"></script>
     <!-- Bootstrap Core CSS -->
-    <link href="<?php echo asset('public/admin/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('admin/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
 	
     <!-- Bootstrap DateTimePicker -->
-    <link href="<?php echo asset('public/vendor/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('vendor/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'); ?>" rel="stylesheet">
 	
 	<!-- Select2 Core CSS -->
-    <link href="<?php echo asset('public/admin/vendor/select2/css/select2.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('admin/vendor/select2/css/select2.min.css'); ?>" rel="stylesheet">
 
 	<!-- Select2-Bootstrap CSS -->
-    <link href="<?php echo asset('public/admin/vendor/select2/css/select2-bootstrap.css'); ?>" rel="stylesheet">	
+    <link href="<?php echo asset('admin/vendor/select2/css/select2-bootstrap.css'); ?>" rel="stylesheet">	
 	
     <!-- MetisMenu CSS -->
-    <link href="<?php echo asset('public/admin/vendor/metisMenu/metisMenu.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('admin/vendor/metisMenu/metisMenu.min.css'); ?>" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="<?php echo asset('public/admin/vendor/datatables-plugins/dataTables.bootstrap.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('admin/vendor/datatables-plugins/dataTables.bootstrap.css'); ?>" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="<?php echo asset('public/admin/vendor/datatables-responsive/dataTables.responsive.css'); ?>" rel="stylesheet">	
+    <link href="<?php echo asset('admin/vendor/datatables-responsive/dataTables.responsive.css'); ?>" rel="stylesheet">	
 	
     <!-- Custom CSS -->
-    <link href="<?php echo asset('public/admin/dist/css/sb-admin-2.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('admin/dist/css/sb-admin-2.css'); ?>" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="<?php echo asset('public/admin/vendor/morrisjs/morris.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('admin/vendor/morrisjs/morris.css'); ?>" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="<?php echo asset('public/vendor/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
-	<link href="<?php echo asset('public/admin/dist/css/style.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('vendor/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
+	<link href="<?php echo asset('admin/dist/css/style.css'); ?>" rel="stylesheet">
 	
 	<!-- jquery-ui(datepicker) -->
-	<link href="<?php echo asset('public/admin/vendor/datepicker/jquery-ui.css'); ?>" rel="stylesheet">
+	<link href="<?php echo asset('admin/vendor/datepicker/jquery-ui.css'); ?>" rel="stylesheet">
 
 	<!-- SCRIPT-SPINNER -->
-	<script data-cfasync="false" src="<?php echo asset('public/vendor/spinner/spin.min.js'); ?>"></script>
+	<script data-cfasync="false" src="<?php echo asset('vendor/spinner/spin.min.js'); ?>"></script>
 	
-  	<link rel="stylesheet" href="{{ asset('public/admin/vendor/chosen-js/chosen.css') }}">
+  	<link rel="stylesheet" href="{{ asset('admin/vendor/chosen-js/chosen.css') }}">
 
 </head>
 

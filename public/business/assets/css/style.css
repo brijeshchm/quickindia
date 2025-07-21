@@ -823,7 +823,7 @@ div.dataTables_paginate{
         }
 
         .favorite-icon.favorited {
-            color: #f6ad55;
+            color: #f68700;
         }
 
         .bottom-nav {
@@ -919,7 +919,10 @@ div.dataTables_paginate{
             padding: 15px;
         }
 
-        
+      .bi-star::before {
+      content: "\f588";
+      font-size: 22px;
+      }
 
          
 

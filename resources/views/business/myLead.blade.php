@@ -26,8 +26,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
     </div> 
             
             <div class="status">
-                <span>1422</span>
-                <span>Platinum</span>
+                <span><a href="{{ url('business/myLead')}}">Total Lead</a> | </span>
+                <span><a href="{{ url('business/package')}}">Platinum</a></span>
                 <span>0h</span>
             </div>
         </div>
@@ -38,10 +38,10 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
             <div class="tab-content active" id="all">
                 @if(!empty($leads))
                 @foreach($leads as $lead)
-                <div class="enquiry-item">
+                <div class="enquiry-item assignedLeadsClick"  data-assigned_leads= "{{ $lead->assignId }}" data-client_id= "{{ $lead->clientId }}" style="<?php  if(!$lead->readLead){ echo "background:#ddd"; } ?>">
                     <div class="avatar"><?php  echo ucfirst(substr($lead->name,0,1)); ?></div>
                     <div class="enquiry-details">
-                        <h4><i class="bi bi-person"></i> {{ucfirst($lead->name)}} <span class="tag">My Lead</span> <i class="fa-regular bi-star favorite-icon"></i></h4>
+                        <h4><i class="bi bi-person"></i> {{ucfirst($lead->name)}} <span class="tag">My Lead</span> <i class="fa-regular bi-star favorite-icon <?php  if($lead->favoriteLead){ echo "favorited"; } ?>" data-favoritleads= "{{ $lead->assignId }}" "></i></h4>
                         <p><i class="bi bi-book"></i> {{$lead->kw_text}}</p>
                         <p>Online Class</p>
                         <p>@if($lead->city_name) <i class="bi bi-pin-map-fill"></i>{{$lead->city_name}}@endif @if($lead->zone)<i class="bi bi-pin-map-fill"></i> {{$lead->zone}} @endif</p>

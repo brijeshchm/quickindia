@@ -59,6 +59,9 @@ Route::get('/business/profileLogo/logoDel/{id}',[App\Http\Controllers\Client\Bus
 Route::get('/business/profileLogo/profilePicDel/{id}',[App\Http\Controllers\Client\BusinessController::class, 'profilePicDel']);
 Route::get('/business/location-information',[App\Http\Controllers\Client\BusinessController::class, 'locationInformation']);
 Route::post('/business/saveLocationInformation',[App\Http\Controllers\Client\BusinessController::class, 'saveLocationInformation']);
+Route::post('/business/pauseLead',[App\Http\Controllers\Client\BusinessController::class, 'pauseLead']);
+Route::post('/business/readLead',[App\Http\Controllers\Client\BusinessController::class, 'readLead']);
+Route::post('/business/favoritleads',[App\Http\Controllers\Client\BusinessController::class, 'favoritleads']);
 
 Route::get('/business/gallery-pictures',[App\Http\Controllers\Client\BusinessController::class, 'uploadPictures']);
 Route::get('/business/package',[App\Http\Controllers\Client\BusinessController::class, 'package']);
@@ -90,6 +93,7 @@ Route::get('/business/get-paginated-payment-history',[App\Http\Controllers\Clien
 /* Change Password - CLIENT */
 
 /* Change Password - CLIENT */
+ Route::get('/business/pay-deposit',[App\Http\Controllers\Client\razorpayController::class,'payDeposit']);
 
 	
 	 
