@@ -161,10 +161,12 @@
     <div class="info-head">
         <div class="package"><a href="{{ url('business/package')}}">{{ $client->client_type ?? '' }}  </a></div>
         <div class="expire">Expire: {{ date('d M, Y',strtotime($client->expired_on)) ?? '' }}</div>
+       <form class="profileSave" method="POST">
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  value="{{ $client->pauseLead??'' }}" data-client-id="{{ $client->id }}" @if(!empty($client->pauseLead)) {{ "checked"}} @endif>
             <label class="form-check-label" for="flexSwitchCheckChecked">Pause Lead </label>
         </div>
+        </form>
         <div class="remain-code">Remaining Cons: {{ $client->coins_amt ?? '' }}</div>
         <div class="new-lead">New Lead:<a href="{{ url('business/new-enquiry') }}"> <span class="bell"><i class="bi bi-envelope"></i> {{ $leads??''}}</span></a></div>
     </div>

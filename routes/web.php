@@ -94,6 +94,10 @@ Route::get('/business/get-paginated-payment-history',[App\Http\Controllers\Clien
 
 /* Change Password - CLIENT */
  Route::get('/business/pay-deposit',[App\Http\Controllers\Client\razorpayController::class,'payDeposit']);
+ Route::post('/business/razorPayCheckout',[App\Http\Controllers\Client\razorpayController::class,'razorPayCheckout']);
+ Route::post('/business/save-processing',[App\Http\Controllers\Client\razorpayController::class,'saveProcessing']);
+ Route::get('/business/success',[App\Http\Controllers\Client\razorpayController::class,'success']);
+ Route::get('/business/failed',[App\Http\Controllers\Client\razorpayController::class,'failed']);
 
 	
 	 
