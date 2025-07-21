@@ -80,7 +80,7 @@
 <script type="text/javascript" src="<?php echo asset('public/client/js/jquery.opacityrollover.js'); ?>" ></script>
 <script type="text/javascript" src="<?php echo asset('public/client/js/bootstrap.min.js'); ?>" ></script>
   
-<link href="<?php echo asset('public/client/css/style.css'); ?>" rel="stylesheet">
+<link href="<?php echo asset('client/css/style.css'); ?>" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo asset('public/client/css/owl.carousel.css'); ?>">
 <link rel="stylesheet" href="<?php echo asset('public/client/css/galleriffic-1.css'); ?>" type="text/css" />
 <link href="<?php echo asset('public/client/css/login-popup.css'); ?>" rel="stylesheet">
