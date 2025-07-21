@@ -191,23 +191,28 @@ $.ajaxSetup({	headers: {	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('cont
     
 jQuery(document).on('click', '#razor-pay-now', function (e) {	 
     
-    
-    var total = (jQuery('form#razorpay-frm-payment').find('input#amount').val() * 100);
+ 
+    var total = (jQuery('form#razorpay-frm-payment').find('input#gst_total_amount').val() * 100);
     var merchant_order_id = jQuery('form#razorpay-frm-payment').find('input#merchant_order_id').val();
     var merchant_surl_id = jQuery('form#razorpay-frm-payment').find('input#surl').val();
     var merchant_furl_id = jQuery('form#razorpay-frm-payment').find('input#furl').val();
    
     var card_holder_name_id = jQuery('form#razorpay-frm-payment').find('input#billing-name').val();
     var merchant_total = total;
-    var merchant_amount = jQuery('form#razorpay-frm-payment').find('input#amount').val();
+    var paid_amount = jQuery('form#razorpay-frm-payment').find('input#paid_amount').val();
+    var merchant_amount = jQuery('form#razorpay-frm-payment').find('input#gst_total_amount').val();
+    var gst_tax = jQuery('form#razorpay-frm-payment').find('input#gst_tax').val();
+
     var currency_code_id = jQuery('form#razorpay-frm-payment').find('input#currency').val();
       var key_id = jQuery('form#razorpay-frm-payment').find('input#RAZOR_KEY_ID').val();
     var store_name = 'Quick India Pvt Ltd';
-    var store_description = 'Fees Pay';
+    var store_description = 'Package Pay';
     var store_logo = 'https://quickindia.in/public/client/images/logo.png';
     var email = jQuery('form#razorpay-frm-payment').find('input#billing-email').val();
     var phone = jQuery('form#razorpay-frm-payment').find('input#billing-phone').val();
-    var course = jQuery('form#razorpay-frm-payment').find('input#course').val();
+    var coins = jQuery('form#razorpay-frm-payment').find('input#coins').val();
+    var client_id = jQuery('form#razorpay-frm-payment').find('input#client_id').val();
+    var username = jQuery('form#razorpay-frm-payment').find('input#username').val();
     var billing_country = jQuery('form#razorpay-frm-payment').find('input#billing_country').val();
     var billing_state = jQuery('form#razorpay-frm-payment').find('input#billing_state').val();
     var city = jQuery('form#razorpay-frm-payment').find('input#city').val();    
@@ -244,16 +249,13 @@ jQuery(document).on('click', '#razor-pay-now', function (e) {
             jQuery.ajax({
                 url:'/business/razorPayCheckout',
                 type: 'post',
-                data: {razorpay_payment_id: transaction.razorpay_payment_id, merchant_order_id: merchant_order_id, merchant_surl_id: merchant_surl_id, merchant_furl_id: merchant_furl_id, card_holder_name_id: card_holder_name_id, merchant_total: merchant_total, merchant_amount: merchant_amount, currency_code_id: currency_code_id,pay:store_name,course:course,email:email,phone:phone,billing_country:billing_country,billing_state:billing_state,city:city}, 
+                data: {razorpay_payment_id: transaction.razorpay_payment_id, merchant_order_id: merchant_order_id, merchant_surl_id: merchant_surl_id, merchant_furl_id: merchant_furl_id, card_holder_name_id: card_holder_name_id, merchant_total: merchant_total, merchant_amount: merchant_amount, currency_code_id: currency_code_id,pay:store_name,email:email,phone:phone,billing_country:billing_country,billing_state:billing_state,city:city,coins:coins,client_id:client_id,username:username,gst_tax:gst_tax,paid_amount:paid_amount}, 
                 dataType: 'json',
-                success: function (res) {		 
-			var obj =  jQuery.parseJSON(res.data);
-                    if(res.msg){
-                        alert(res.msg);
-                        return false;
-                    }                
-                   window.location = res.redirectURL+'?getpay='+obj.getpay+'&card_holder_name='+obj.card_holder_name+'&merchant_amount='+obj.merchant_amount+'&order_id='+obj.order_id+'&currency_code_id='+obj.currency_code+'&pay_to='+obj.pay_to+'&course='+obj.course+'&email='+obj.email+'&phone='+obj.phone+'&payment_id='+obj.razorpay_payment_id+'&billing_country='+obj.billing_country+'&billing_state='+obj.billing_state+'&city='+obj.city;
-                                   }
+                success: function (res) {		
+				 
+			 		var obj =  jQuery.parseJSON(res.data);				                
+                   window.location = res.redirectURL+'?getpay='+obj.getpay+'&card_holder_name='+obj.card_holder_name+'&merchant_amount='+obj.merchant_amount+'&order_id='+obj.order_id+'&currency_code_id='+obj.currency_code+'&pay_to='+obj.pay_to+'&coins='+obj.coins+'&email='+obj.email+'&phone='+obj.phone+'&payment_id='+obj.razorpay_payment_id+'&billing_country='+obj.billing_country+'&billing_state='+obj.billing_state+'&city='+obj.city;
+                }
             });
         },
         "modal": {
@@ -742,34 +744,7 @@ var enquiryController  = (function(){
     }
 
  
-
-	$(document).on('change','#flexSwitchCheckChecked',function(e){
-		e.preventDefault();	
-		var clientId   = $(this).attr("data-client-id");	 
-		const isChecked = $(this).is(':checked');
-
-		console.log('Checkbox is checked:', isChecked);
-        console.log('Client ID:', clientId);
-
-		$.ajax({
-			type: "POST",
-		 	url:"/business/pauseLead",
-			data: {client_id: clientId,pauseLead: isChecked},
-			dataType: 'json',
-			success: function(response) {				
-				if(response.status){					  
-				 $(this).checked = !isChecked
-				 
-				}else{
-					  
-				}				
-			},
-			error: function(response) {
-			 
-			}
-		});	
-		
-	});
+ 
 
 	$(document).on('click','.assignedLeadsClick',function(e){
 		e.preventDefault();	

@@ -44,16 +44,18 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
                 <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
                  
                 <form class="profileSave" method="POST">
-                    <input type="hidden" name="business_id" value="">
+                 
                       
                               
-                    <div class="form-group">    
+                    <div class="form-group">
                     
+                    <?php   $clientID = auth()->guard('clients')->user()->id;
 
+                      $client = App\Models\Client\Client::find($clientID);  ?>
                         <div class="form-check form-switch">
-                        <?php  $checked = 0; ?>
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" value="0" <?php  if($checked){ echo "checked"; } ?> >
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Lead push</label>
+                      
+                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  value="{{ $client->pauseLead??'' }}" data-client-id="{{ $client->id }}" @if(!empty($client->pauseLead)) {{ "checked"}} @endif>
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Pause Lea</label>
                         </div>
                     </div>
                  

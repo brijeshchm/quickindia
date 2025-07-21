@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers\Client;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;  
-use Auth;
-use Hash;
- 
-use Validator;
-use DB;
-use Session;
-use App\Inquiry;
-use App\City;
-use App\Country;
+use App\Http\Controllers\Controller; 
+use Session; 
+use App\Models\Citieslists;
 use App\State;
-use App\JobStutdents;
-use App\RazorpayHistory;
-use Carbon\Carbon; 
-use App\PaymentMode;
+ 
+use App\Models\RazorpayHistory;
+use App\Models\PaymentHistory;
+use App\Models\Client\Client;
+ 
 use Mail;
 
 class razorpayController extends Controller
@@ -28,15 +22,10 @@ class razorpayController extends Controller
      */
     public function __construct(Request $request)
     {
-       
-	//	define('RAZOR_KEY_ID', 'rzp_live_Xj3ZQeHaTp8afG');
-	//	define('RAZOR_KEY_SECRET', 'TVosHOhk9POk6okt4MY3oMSA');
-		
-		
-		
-		//testing Key 
-		define('RAZOR_KEY_ID', 'rzp_test_WWlwKjnhKnVRWB');
-		define('RAZOR_KEY_SECRET', 'Dd1EcoT6xoAYb061F2CKZadt');
+ 
+		//testing Key  brijeshchauhansit@gmail.com
+		define('RAZOR_KEY_ID', 'rzp_test_W4vtkmMCBlCwIo');
+		define('RAZOR_KEY_SECRET', 'sYeslbCFPinBjmHBRNpz806I');
 	   
     }
 
@@ -72,7 +61,7 @@ class razorpayController extends Controller
 	}else{
 		$data=array();
 	}
-	echo "<pre>";print_r($data);die;
+//	echo "<pre>";print_r($data);die;
 		return view('business.razorpay.pay-checkout',['data'=>$data]);
  
 	}
@@ -122,7 +111,7 @@ class razorpayController extends Controller
 			$data['country'] = $this->validation_input($countryname);	
 			
 			$d= time();
-			$traisaction= "CC_".rand(10, 99).'_'.$d;
+			$traisaction= "QI_".rand(10, 99).'_'.$d;
 			if(!empty($data)){
 
 			$s=1;	
@@ -207,11 +196,11 @@ class razorpayController extends Controller
 			
  public function razorPayCheckout(Request $request ){
 	 
-	 echo "<pre>";print_r($_POST);die;
-	 
-	 
+	  
+	 //echo "<pre>";print_r($_POST);
 	 
 if (!empty($_POST['razorpay_payment_id']) && !empty($_POST['merchant_order_id'])) {
+
 $json = array();
 $razorpay_payment_id = $_POST['razorpay_payment_id'];
 $merchant_order_id = $_POST['merchant_order_id'];
@@ -230,7 +219,12 @@ $dataFlesh = array(
     'order_id' => $_POST['merchant_order_id'],
     'razorpay_payment_id' => $_POST['razorpay_payment_id'],
     'pay_to' => $_POST['pay'],
-    'course' => $_POST['course'],
+    'coins' => $_POST['coins'],
+    'gst_tax' => $_POST['gst_tax'],
+    'client_id' => $_POST['client_id'],
+    'username' => $_POST['username'],
+    'paid_amount' => $_POST['paid_amount'],
+ 
     'email' => $_POST['email'],
     'phone' => $_POST['phone'],
    // 'address' => $_POST['address'],
@@ -282,7 +276,7 @@ try {
     curl_close($ch);
 } catch (Exception $e) {
     $success = false;
-    $error = 'Request to Razorpay Failed';
+    $error = $e->getMessage();
 }
 if ($success === true) {
     if (!$order_info['order_status_id']) {
@@ -295,7 +289,9 @@ if ($success === true) {
 		$feesHisoty->name= $paymentInfo['card_holder_name'];
 		$feesHisoty->email= $paymentInfo['email'];
 		$feesHisoty->phone= $paymentInfo['phone'];
-		$feesHisoty->course= $paymentInfo['course'];
+		$feesHisoty->username= $paymentInfo['username'];
+		$feesHisoty->coins= $paymentInfo['coins'];
+		$feesHisoty->client_id= $paymentInfo['client_id'];
 		$feesHisoty->merchant_amount= $paymentInfo['merchant_amount'];
 		$feesHisoty->merchant_total= $paymentInfo['merchant_total'];
 		$feesHisoty->currency_code= $paymentInfo['currency_code'];
@@ -306,15 +302,64 @@ if ($success === true) {
 		$feesHisoty->billing_state= $paymentInfo['billing_state'];
 		$feesHisoty->pay_to= $paymentInfo['pay_to'];
 		$feesHisoty->getpay= 1;
+		$feesHisoty->message= $error;
 		$feesHisoty->save();
+
+ 		$clientdeatails = Client::find($paymentInfo['client_id']);
+	  	$paymenthistory = new PaymentHistory;
+		$paymenthistory->client_id =$paymentInfo['client_id'];  	
+		$paymenthistory->customer_name = $paymentInfo['card_holder_name'];
+		$paymenthistory->business_name =  $clientdeatails->business_name;
+		$paymenthistory->mobile = $paymentInfo['phone'];
+		$paymenthistory->email = $paymentInfo['email'];
+		$paymenthistory->package_name = $clientdeatails->client_type;			 
+		$paymenthistory->coins_amt = $paymentInfo['coins']; 
+		$paymenthistory->selectproofid = "";
+		$paymenthistory->proofid = "";	 
+		$paymenthistory->paid_amount = $paymentInfo['paid_amount'];	 
+		$paymenthistory->tds_status = "No";	 
+		$paymenthistory->tds_amount ="0";
+		$paymenthistory->gst_tax = $paymentInfo['gst_tax'];		 
+		$paymenthistory->gst_total_amount = $paymentInfo['merchant_amount'];	 
+		$paymenthistory->gst_status = "Yes";	 
+		$paymenthistory->total_amount = $paymentInfo['merchant_amount'];	
+		$paymenthistory->transactionid = $paymentInfo['order_id'];			 
+		$paymenthistory->paymentcollect = 0;			 
+		$paymenthistory->payment_mode = "razorpay";
+		$paymenthistory->payment_bank = ""; 
+		$paymenthistory->save();
+ 
+		$clientdeatails->coins_amt = $clientdeatails->coins_amt + $paymentInfo['coins'];
+		if($clientdeatails->expired_on == '0000-00-00 00:00:00' || $clientdeatails->expired_on =='NULL'){
+		
+		$newDate = date('Y-m-d', strtotime(now(). ' +365 days'));
+			
+		}else if(strtotime($clientdeatails->expired_on) > strtotime(date('Y-m-d'))){
+			$newDate = date('Y-m-d', strtotime($clientdeatails->expired_on . ' +365 days'));
+						
+		}else if(strtotime($clientdeatails->expired_on) < strtotime(date('Y-m-d'))){
+			$newDate = date('Y-m-d', strtotime(now() . ' +365 days'));
+						
+		}else{
+			$newDate = date('Y-m-d', strtotime(now() . ' +365 days'));
+		}
+		$clientdeatails->expired_on = $newDate;
+		$clientdeatails->active_status = "1";
+		$clientdeatails->paid_status = "1";
+		$clientdeatails->save();
+
 		 $json['data'] = json_encode($paymentInfo);
         $json['redirectURL'] = $_POST['merchant_surl_id'];
     }
 } else {
+
+
+	$json['data'] = json_encode($paymentInfo);
     $json['redirectURL'] = $_POST['merchant_furl_id'];
 }
-$json['msg'] = '';
+$json['msg'] = 'success';
 } else {
+
 $json['msg'] = 'An error occured. Contact site administrator, please!';
 }
 header('Content-Type: application/json');
@@ -327,7 +372,7 @@ echo json_encode($json);
   
  
  public function success(Request $request){
-	// echo "<pre>";print_r($_GET);die;
+	 
 	 if(isset($_GET)){		 
 		 $data =$_GET;		 
 	 }else{

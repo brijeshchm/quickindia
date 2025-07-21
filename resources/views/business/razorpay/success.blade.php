@@ -1,24 +1,12 @@
-@extends('site.layouts.app')
+ @extends('business.layouts.app')
 @section('title')
-@if(!empty($coursesdetails->title))	 
- {{$coursesdetails->title}}; 
-@else
-	Croma Campus- Best IT Training Institute in Noida | Delhi | Gurgaon
-@endif
+ 
 @endsection 
 @section('keyword')
-@if(!empty($coursesdetails->meta_keyword))
-	{{$coursesdetails->meta_keywords}};
-@else
-	Croma Campus: Best IT Training Institute in Noida | Delhi | Gurgaon
-@endif
+ 
 @endsection
 @section('description')
-@if(!empty($coursesdetails->meta_description))
-{{$coursesdetails->meta_description}};
-@else
-	Croma campus Best IT Training Institute in Noida | Delhi | Gurgaon for Industrial Training. We conducts IT Software, Hardware, Network &amp; Security Courses training. Corporate Trainer commands all training program. Week Days, Weekend, 6 Week, 6 Months Industrial Training are available
-@endif
+ 
 @endsection
 @section('content')
 <style>
@@ -50,8 +38,12 @@ tr th{
 }
 	</style>
  
-<div class="main">	
-		<section class="fee-deposit">
+<div id="main" class="main">	
+	    <div class="pagetitle">
+      <h1>Success</h1>
+      
+    </div><!-- End Page Title -->
+		<section class="section profile">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-1"></div>
@@ -72,7 +64,7 @@ tr th{
 		                      <div class="transaction-section">
 							 					  
 							  
-							<table>
+							<table width="100%">
 							<tr>
 							<td><strong>Summary</strong></td>
 							<td><strong>Details</strong></td>
@@ -125,7 +117,7 @@ tr th{
 							<tr style="background-color:#ddd;color:#003453;">
 							<th>Address</th>
 
-							<td><?php echo $_GET['city'].', '.$_GET['billing_state'].', '.$_GET['billing_country']; ?></td>
+							<td><?php echo (isset($_GET['city'])?$_GET['city']:"").', '.(isset($_GET['billing_state'])?$_GET['billing_state']:"").', '.(isset($_GET['billing_country'])?$_GET['billing_country']:""); ?></td>
 							</tr>
 												 
 							<tr style="background-color:#f4f5f7;color:#003453;">
@@ -136,7 +128,7 @@ tr th{
 							</tr>
 							<tr style="border:none">
 							<td>
-							<a href="javascript:void(0);" id="invoicePrintPdf" class="btn btn-primary" data-sid="<?php echo $_GET['order_id']; ?>" style="margin-left: 78%;width: 88px;"> <i class="fa fa-print"></i> Print</a></td>
+							<a href="javascript:void(0);" id="invoicePrintPdf" class="btn btn-primary" data-sid="<?php echo (isset($_GET['order_id'])?$_GET['order_id']:""); ?>" style="margin-left: 78%;width: 88px;"> <i class="fa fa-print"></i> Print</a></td>
 							</tr>
 
 							</table>
@@ -212,91 +204,7 @@ tr th{
 </script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script type="text/javascript">
- /*  $(document).on('click', '#razor-pay-now', function (e) {
-	  
-    var total = (jQuery('form#razorpay-frm-payment').find('input#amount').val() * 100);
-    var merchant_order_id = jQuery('form#razorpay-frm-payment').find('input#merchant_order_id').val();
-    var merchant_surl_id = jQuery('form#razorpay-frm-payment').find('input#surl').val();
-    var merchant_furl_id = jQuery('form#razorpay-frm-payment').find('input#furl').val();
-    var card_holder_name_id = jQuery('form#razorpay-frm-payment').find('input#billing-name').val();
-    var address = jQuery('form#razorpay-frm-payment').find('input#billing_address').val();
-    var merchant_total = total;
-    var merchant_amount = jQuery('form#razorpay-frm-payment').find('input#amount').val();
-    var currency_code_id = jQuery('form#razorpay-frm-payment').find('input#currency').val();
-    var key_id = jQuery('form#razorpay-frm-payment').find('input#RAZOR_KEY_ID').val();
-  //  var key_id = "<?php echo RAZOR_KEY_ID; ?>";
-    var store_name = 'Croma Campus Pvt Ltd';
-    var store_description = 'Fees Pay';
-    var store_logo = 'https://www.cromacampus.com/wp-content/themes/cromacampus/assets/img/logo.png';
-    var email = jQuery('form#razorpay-frm-payment').find('input#billing-email').val();
-    var phone = jQuery('form#razorpay-frm-payment').find('input#billing-phone').val();
-    var course = jQuery('form#razorpay-frm-payment').find('input#course').val();
-    var billing_country = jQuery('form#razorpay-frm-payment').find('input#billing_country').val();
-    var city = jQuery('form#razorpay-frm-payment').find('input#city').val();
-    
-    jQuery('.text-danger').remove();
-
-    if(card_holder_name_id=="") {
-      jQuery('input#billing-name').after('<small class="text-danger">Please enter full mame.</small>');
-      return false;
-    }
-    if(email=="") {
-      jQuery('input#billing-email').after('<small class="text-danger">Please enter valid email.</small>');
-      return false;
-    }
-    if(phone=="") {
-      jQuery('input#billing-phone').after('<small class="text-danger">Please enter valid phone.</small>');
-      return false;
-    }
-    
-    var razorpay_options = {
-        key: key_id,
-        amount: merchant_total,
-        name: store_name,
-        description: store_description,
-        image: store_logo,
-        netbanking: true,
-        currency: currency_code_id,
-        prefill: {
-            name: card_holder_name_id,
-            email: email,
-            contact: phone
-        },
-        notes: {
-            soolegal_order_id: merchant_order_id,
-        },
-        handler: function (transaction) {
-            jQuery.ajax({
-                url:'/razorPayCheckout',
-                type: 'post',
-                data: {razorpay_payment_id: transaction.razorpay_payment_id, merchant_order_id: merchant_order_id, merchant_surl_id: merchant_surl_id, merchant_furl_id: merchant_furl_id, card_holder_name_id: card_holder_name_id, merchant_total: merchant_total, merchant_amount: merchant_amount, currency_code_id: currency_code_id,pay:store_name,course:course,email:email,phone:phone,address:address,billing_country:billing_country,city:city}, 
-                dataType: 'json',
-                success: function (res) {		 
-			var obj =  jQuery.parseJSON(res.data);
-			   
-                    if(res.msg){
-                        alert(res.msg);
-                        return false;
-                    } 
-                  //  window.location = res.redirectURL;
-                   window.location = res.redirectURL+'?getpay='+obj.getpay+'&card_holder_name='+obj.card_holder_name+'&merchant_amount='+obj.merchant_amount+'&order_id='+obj.order_id+'&currency_code_id='+obj.currency_code+'&pay_to='+obj.pay_to+'&course='+obj.course+'&email='+obj.email+'&phone='+obj.phone+'&address='+obj.address+'&payment_id='+obj.razorpay_payment_id+'&billing_country='+obj.billing_country+'&city='+obj.city;
-                   // window.location = res.redirectURL+'?oridd='+razorpay_payment_id+'&'+card_holder_name_id;
-					//return false;
-                }
-            });
-        },
-        "modal": {
-            "ondismiss": function () {
-                // code here
-            }
-        }
-    };
-    // obj        
-    var objrzpv1 = new Razorpay(razorpay_options);
-    objrzpv1.open();
-        e.preventDefault();
-            
-}); */
+  
 </script>
 
 

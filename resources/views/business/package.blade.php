@@ -85,10 +85,17 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">Buy Details</h5>
+                  <h5 class="card-title">Buy Details <?php   
+                  
+          
+           $newDate = date('Y-m-d', strtotime(now() . ' +365 days'));
+                echo $newDate;
+                  
+                  
+                  ?></h5>
 
                   <div class="row">
-                    <div class="col-lg-2 col-md-4 label "><i class="bi bi-currency-rupee"></i> 1000 : </div>
+                    <div class="col-lg-2 col-md-4 label "><i class="bi bi-currency-rupee"></i> 1000: </div>
                     <div class="col-lg-2 col-md-8"> 1111 Coins</div>
                     <?php 
                    // echo "<pre>";print_r($client);
@@ -118,8 +125,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data2['country'] = $client->country;
                         $data2['state'] = $client->state;
                         $data2['city'] = $client->city;
-                        $data1['id'] = $client->id;
-                        $data1['username'] = $client->username;
+                        $data2['id'] = $client->id;
+                        $data2['username'] = $client->username;
                         $resultData2000 = dataEncodeJsonBase64($data2);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData2000)}}">Buy Package</a></div>
@@ -137,8 +144,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data3['country'] = $client->country;
                         $data3['state'] = $client->state;
                         $data3['city'] = $client->city;
-                        $data1['id'] = $client->id;
-                        $data1['username'] = $client->username;
+                        $data3['id'] = $client->id;
+                        $data3['username'] = $client->username;
                         $resultData3000 = dataEncodeJsonBase64($data3);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData3000)}}">Buy Package</a></div>
@@ -156,8 +163,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data4['country'] = $client->country;
                         $data4['state'] = $client->state;
                         $data4['city'] = $client->city;
-                        $data1['id'] = $client->id;
-                        $data1['username'] = $client->username;
+                        $data4['id'] = $client->id;
+                        $data4['username'] = $client->username;
                         $resultData5000 = dataEncodeJsonBase64($data4);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData5000)}}">Buy Package</a></div>
@@ -175,13 +182,26 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data5['country'] = $client->country;
                         $data5['state'] = $client->state;
                         $data5['city'] = $client->city;
-                        $data1['id'] = $client->id;
-                        $data1['username'] = $client->username;
+                        $data5['id'] = $client->id;
+                        $data5['username'] = $client->username;
                         $resultData10000 = dataEncodeJsonBase64($data5);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData10000)}}">Buy Package</a></div>
                   </div>
              
+
+
+                     <div class="row">
+                    <div class="col-lg-12">
+
+<strong>Note: 18% GST Extra on above packages </strong>
+
+                    </div>
+                    </div>
+
+
+
+
                 </div>
               </div> 
               

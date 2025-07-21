@@ -218,7 +218,7 @@ document.getElementById("merchant_order_id").value = o;
 			</tr>
 			<tr class="pay-order">
 			<td>Amount</td>
-			<td><?php if($data->amt){ echo $data->amt; } ?>/-Rs</td>
+			<td><?php if($data->amt){ echo (($data->amt*0.18) + $data->amt); } ?>/-Rs With Include GST</td>
 			</tr>
 			<tr class="pay-order">
 			<td>Coins</td>
@@ -243,16 +243,28 @@ document.getElementById("merchant_order_id").value = o;
 				<input type="hidden" name="language" value="EN"> 
 				<input type="hidden" name="currency" id="currency" value="INR"> 
 					
-				<input type="hidden" name="surl" id="surl" value="https://www.quickindia.in/business/success/"> 
-				<input type="hidden" name="furl" id="furl" value="https://www.quickindia.com/business/failed/">  
 
-				<input type="hidden" class="form-control" id="amount" name="amount" placeholder="amount" value="<?php echo $data->amt; ?>" readonly="readonly">
+
+					<input type="hidden" name="surl" id="surl" value="http://localhost:8000/business/success"> 
+				<input type="hidden" name="furl" id="furl" value="http://localhost:8000/business/failed">  
+
+
+				<!--<input type="hidden" name="surl" id="surl" value="https://www.quickindia.in/business/success/"> 
+				<input type="hidden" name="furl" id="furl" value="https://www.quickindia.com/business/failed/">  -->
+
+				<input type="hidden" class="form-control" id="amount1" placeholder="amount" value="<?php if($data->amt){ echo $data->amt; } ?>" readonly="readonly">
+				<input type="hidden" class="form-control" id="amount2" placeholder="amount" value="<?php if($data->amt){ echo $data->amt; } ?>" readonly="readonly">
+				<input type="hidden" class="form-control" id="amount3" placeholder="amount" value="<?php if($data->amt){ echo $data->amt; } ?>" readonly="readonly">		 
+				<input type="hidden" class="form-control" id="paid_amount" name="paid_amount" placeholder="amount" value="<?php if($data->amt){ echo  $data->amt; } ?>" readonly="readonly">
+				<input type="hidden" class="form-control" id="gst_tax" name="gst_tax" placeholder="amount" value="<?php if($data->amt){ echo ($data->amt*0.18); } ?>" readonly="readonly">
+				<input type="hidden" class="form-control" id="gst_total_amount" name="gst_total_amount" placeholder="gst_total_amount" value="<?php if($data->amt){ echo (($data->amt*0.18) + $data->amt); } ?>" readonly="readonly">
+
 					<input type="hidden" name="billing_name" class="form-control" id="billing-name" value="<?php echo $data->name; ?>" Placeholder="Name" required> 
 					<input type="hidden" name="billing_email"class="form-control" id="billing-email" value="<?php echo $data->email; ?>" Placeholder="Email" required>
 					<input type="hidden" name="billing_phone" class="form-control" id="billing-phone" value="<?php echo $data->phone; ?>" Placeholder="Phone" required>  
 					
 					<input type="hidden" name="coins" class="form-control" id="coins" value="<?php echo $data->coins; ?>" Placeholder="coins">  
-					<input type="hidden" name="id" class="form-control" id="id" value="<?php echo $data->id; ?>" Placeholder="coins">  
+					<input type="hidden" name="client_id" class="form-control" id="client_id" value="<?php echo $data->id; ?>" Placeholder="coins">  
 					<input type="hidden" name="username" class="form-control" id="username" value="<?php echo $data->username; ?>" Placeholder="username">  
 
 					<input type="hidden" name="billing_country" class="form-control" id="billing_country" value="<?php echo $data->country; ?>" Placeholder="Country">
@@ -267,7 +279,7 @@ document.getElementById("merchant_order_id").value = o;
 					
 				<a href="{{url('/business/package')}}" class="payment-cancel-button mb-md-2">Cancel</a>
 				
-					<button type="submit"  class="payment-proceed-button mb-md-2" id="razor-pay-now" >Proceed</button>
+					<button type="submit"  class="payment-proceed-button mb-md-2" id="razor-pay-now" >Pay</button>
 					
 					
 							
