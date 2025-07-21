@@ -187,7 +187,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                      <div class="row">
                     <div class="col-lg-12">
 
-<strong>Note: 18% GST Extra on above packages </strong>
+                        <strong>Note: 18% GST Extra on above packages </strong>
 
                     </div>
                     </div>
