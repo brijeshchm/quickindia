@@ -100,6 +100,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data1['country'] = $client->country;
                         $data1['state'] = $client->state;
                         $data1['city'] = $client->city;
+                        $data1['id'] = $client->id;
+                        $data1['username'] = $client->username;
                         $resultData1000 = dataEncodeJsonBase64($data1);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData1000)}}">Buy Package</a></div>
@@ -116,6 +118,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data2['country'] = $client->country;
                         $data2['state'] = $client->state;
                         $data2['city'] = $client->city;
+                        $data1['id'] = $client->id;
+                        $data1['username'] = $client->username;
                         $resultData2000 = dataEncodeJsonBase64($data2);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData2000)}}">Buy Package</a></div>
@@ -133,6 +137,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data3['country'] = $client->country;
                         $data3['state'] = $client->state;
                         $data3['city'] = $client->city;
+                        $data1['id'] = $client->id;
+                        $data1['username'] = $client->username;
                         $resultData3000 = dataEncodeJsonBase64($data3);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData3000)}}">Buy Package</a></div>
@@ -150,6 +156,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data4['country'] = $client->country;
                         $data4['state'] = $client->state;
                         $data4['city'] = $client->city;
+                        $data1['id'] = $client->id;
+                        $data1['username'] = $client->username;
                         $resultData5000 = dataEncodeJsonBase64($data4);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData5000)}}">Buy Package</a></div>
@@ -167,6 +175,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data5['country'] = $client->country;
                         $data5['state'] = $client->state;
                         $data5['city'] = $client->city;
+                        $data1['id'] = $client->id;
+                        $data1['username'] = $client->username;
                         $resultData10000 = dataEncodeJsonBase64($data5);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData10000)}}">Buy Package</a></div>

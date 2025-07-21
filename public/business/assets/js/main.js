@@ -740,6 +740,111 @@ var enquiryController  = (function(){
         
         }
     }
+
+ 
+
+	$(document).on('change','#flexSwitchCheckChecked',function(e){
+		e.preventDefault();	
+		var clientId   = $(this).attr("data-client-id");	 
+		const isChecked = $(this).is(':checked');
+
+		console.log('Checkbox is checked:', isChecked);
+        console.log('Client ID:', clientId);
+
+		$.ajax({
+			type: "POST",
+		 	url:"/business/pauseLead",
+			data: {client_id: clientId,pauseLead: isChecked},
+			dataType: 'json',
+			success: function(response) {				
+				if(response.status){					  
+				 $(this).checked = !isChecked
+				 
+				}else{
+					  
+				}				
+			},
+			error: function(response) {
+			 
+			}
+		});	
+		
+	});
+
+	$(document).on('click','.assignedLeadsClick',function(e){
+		e.preventDefault();	
+		var $this = $(this);
+		var assingId   = $(this).attr("data-assigned_leads");	 
+
+		$.ajax({
+			type: "POST",
+		 	url:"/business/readLead",
+			data: {assingId: assingId},
+			dataType: 'json',
+			success: function(response) {				
+				if(response.status){					 
+					 $this.css('background-color', '#fff');			 
+				}
+			},
+			error: function(response) {
+			 
+			}
+		});	
+		
+	});
+
+	$(document).on('click','.favorite-icon',function(e){
+		e.preventDefault();	
+		var $this = $(this);
+		var assingId   = $(this).attr("data-favoritleads");	  
+		$.ajax({
+			type: "POST",
+		 	url:"/business/favoritleads",
+			data: {assingId: assingId},
+			dataType: 'json',
+			success: function(response) {				
+				if(response.status){					 
+					$this.css('background-color', '#fff');			 
+				}
+			},
+			error: function(response) {
+			 
+			}
+		});	
+		
+	});
+
+
+
+	$(document).on('change','#flexSwitchCheckChecked',function(e){
+		e.preventDefault();	
+		var clientId   = $(this).attr("data-client-id");	 
+		const isChecked = $(this).is(':checked');
+
+		console.log('Checkbox is checked:', isChecked);
+        console.log('Client ID:', clientId);
+
+		$.ajax({
+			type: "POST",
+		 	url:"/business/pauseLead",
+			data: {client_id: clientId,pauseLead: isChecked},
+			dataType: 'json',
+			success: function(response) {				
+				if(response.status){					  
+				 $(this).checked = !isChecked
+				 
+				}else{
+					  
+				}				
+			},
+			error: function(response) {
+			 
+			}
+		});	
+		
+	});
+
+
   $(document).ready(function(){
   
   

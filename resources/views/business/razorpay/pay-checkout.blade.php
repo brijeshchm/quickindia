@@ -235,41 +235,44 @@ document.getElementById("merchant_order_id").value = o;
 	
 		 	
 
-								<form name="razorpay_frm_payment" class="razorpay-frm-payment" id="razorpay-frm-payment" method="post">
-								<input type="hidden" name="_token" value="{{ csrf_token() }}" />
-								
-								<input type="hidden" name="tid" id="tid" readonly />
-								<input type="hidden" name="merchant_order_id" id="merchant_order_id"> 
-								<input type="hidden" name="language" value="EN"> 
-								<input type="hidden" name="currency" id="currency" value="INR"> 
-								 
-							 	<input type="hidden" name="surl" id="surl" value="https://www.quickindia.in/business/success/"> 
-								<input type="hidden" name="furl" id="furl" value="https://www.quickindia.com/business/failed/">  
+				<form name="razorpay_frm_payment" class="razorpay-frm-payment" id="razorpay-frm-payment" method="post">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+				
+				<input type="hidden" name="tid" id="tid" readonly />
+				<input type="hidden" name="merchant_order_id" id="merchant_order_id"> 
+				<input type="hidden" name="language" value="EN"> 
+				<input type="hidden" name="currency" id="currency" value="INR"> 
+					
+				<input type="hidden" name="surl" id="surl" value="https://www.quickindia.in/business/success/"> 
+				<input type="hidden" name="furl" id="furl" value="https://www.quickindia.com/business/failed/">  
 
-								<input type="hidden" class="form-control" id="amount" name="amount" placeholder="amount" value="<?php echo $data->amt; ?>" readonly="readonly">
-								  <input type="hidden" name="billing_name" class="form-control" id="billing-name" value="<?php echo $data->name; ?>" Placeholder="Name" required> 
-								   <input type="hidden" name="billing_email"class="form-control" id="billing-email" value="<?php echo $data->email; ?>" Placeholder="Email" required>
-								  <input type="hidden" name="billing_phone" class="form-control" id="billing-phone" value="<?php echo $data->phone; ?>" Placeholder="Phone" required>  
-								 
-								  <input type="hidden" name="course" class="form-control" id="course" value="<?php echo $data->course; ?>" Placeholder="Course">  
-								   <input type="hidden" name="billing_country" class="form-control" id="billing_country" value="<?php echo $data->country; ?>" Placeholder="Country">
-								   <input type="hidden" name="billing_state" class="form-control" id="billing_state" value="<?php echo $data->state; ?>" Placeholder="State"> 
-								   
-								   <input type="hidden" name="city" class="form-control" id="city" value="<?php echo $data->city; ?>" >
-								   <input type="hidden" name="RAZOR_KEY_ID" class="form-control" id="RAZOR_KEY_ID" value="<?php echo RAZOR_KEY_ID; ?>" >
-								 
+				<input type="hidden" class="form-control" id="amount" name="amount" placeholder="amount" value="<?php echo $data->amt; ?>" readonly="readonly">
+					<input type="hidden" name="billing_name" class="form-control" id="billing-name" value="<?php echo $data->name; ?>" Placeholder="Name" required> 
+					<input type="hidden" name="billing_email"class="form-control" id="billing-email" value="<?php echo $data->email; ?>" Placeholder="Email" required>
+					<input type="hidden" name="billing_phone" class="form-control" id="billing-phone" value="<?php echo $data->phone; ?>" Placeholder="Phone" required>  
+					
+					<input type="hidden" name="coins" class="form-control" id="coins" value="<?php echo $data->coins; ?>" Placeholder="coins">  
+					<input type="hidden" name="id" class="form-control" id="id" value="<?php echo $data->id; ?>" Placeholder="coins">  
+					<input type="hidden" name="username" class="form-control" id="username" value="<?php echo $data->username; ?>" Placeholder="username">  
 
-		                      	<div class="trans-button">
-		                      	    <a class="payment-edit-button mb-md-2" href="{{url('business/package')}}">Edit Now</a>
-		                      	    
-							 	<a href="{{url('/business/package')}}" class="payment-cancel-button mb-md-2">Cancel</a>
-		                       
-		                      		<button type="submit"  class="payment-proceed-button mb-md-2" id="razor-pay-now" >Proceed</button>
-		                      		
-		                      		
-		                      			  
-		                      	</div>								
-								</form>
+					<input type="hidden" name="billing_country" class="form-control" id="billing_country" value="<?php echo $data->country; ?>" Placeholder="Country">
+					<input type="hidden" name="billing_state" class="form-control" id="billing_state" value="<?php echo $data->state; ?>" Placeholder="State"> 
+					
+					<input type="hidden" name="city" class="form-control" id="city" value="<?php echo $data->city; ?>" >
+					<input type="hidden" name="RAZOR_KEY_ID" class="form-control" id="RAZOR_KEY_ID" value="<?php echo RAZOR_KEY_ID; ?>" >
+					
+
+				<div class="trans-button">
+					<a class="payment-edit-button mb-md-2" href="{{url('business/package')}}">Edit Now</a>
+					
+				<a href="{{url('/business/package')}}" class="payment-cancel-button mb-md-2">Cancel</a>
+				
+					<button type="submit"  class="payment-proceed-button mb-md-2" id="razor-pay-now" >Proceed</button>
+					
+					
+							
+				</div>								
+				</form>
 
 			 
 			</div>

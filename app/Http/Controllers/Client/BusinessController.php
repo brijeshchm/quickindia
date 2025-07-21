@@ -25,6 +25,7 @@ use App\Models\User;
 use App\Models\Keyword;
 use App\Models\LeadFollowUp;
 use App\Models\Status;
+use App\Models\AssignedLead;
 class BusinessController extends Controller
 {
 	protected $danger_msg = '';
@@ -71,8 +72,9 @@ class BusinessController extends Controller
 				   ->select('leads.*','assigned_leads.client_id','assigned_leads.lead_id','assigned_leads.created_at as created','areas.area','zones.zone')				 
 				   
 				   ->orderBy('assigned_leads.created_at','desc')
-				   ->where('assigned_leads.client_id',$clientID)->limit('20')->get();
-				   
+				     ->where('assigned_leads.readLead','0')
+				   ->where('assigned_leads.client_id',$clientID)->limit('200')->get();
+		//	echo "<pre>";print_r($clientDetails);	   die;
 	 
 		return view('business.dashboard',['leads'=>$leads,'clientDetails'=>$clientDetails]);
     }
@@ -809,9 +811,10 @@ class BusinessController extends Controller
 				  ->leftjoin('citylists','leads.city_id','=','citylists.id')		 
 				   ->leftjoin('areas','leads.area_id','=','areas.id')		 
 				   ->leftjoin('zones','leads.zone_id','=','zones.id')		 
-				   ->select('leads.*','assigned_leads.client_id','assigned_leads.lead_id','assigned_leads.created_at as created','areas.area','zones.zone')				 
+				   ->select('leads.*','assigned_leads.*','assigned_leads.client_id as clientId','assigned_leads.lead_id','assigned_leads.id as assignId','assigned_leads.created_at as created','areas.area','zones.zone')				 
 				   
 				   ->orderBy('assigned_leads.created_at','desc')
+				   ->where('assigned_leads.readLead','0')
 				   ->where('assigned_leads.client_id',$clientID)->limit('20')->get();
 				   
 					
@@ -827,10 +830,11 @@ class BusinessController extends Controller
 				  ->leftjoin('citylists','leads.city_id','=','citylists.id')		 
 				   ->leftjoin('areas','leads.area_id','=','areas.id')		 
 				   ->leftjoin('zones','leads.zone_id','=','zones.id')		 
-				   ->select('leads.*','assigned_leads.client_id','assigned_leads.lead_id','assigned_leads.created_at as created','areas.area','zones.zone')				 
+				   ->select('leads.*','assigned_leads.*','assigned_leads.client_id as clientId','assigned_leads.lead_id','assigned_leads.id as assignId','assigned_leads.created_at as created','areas.area','zones.zone')				 
 				   
 				   ->orderBy('assigned_leads.created_at','desc')
-				   ->where('assigned_leads.client_id',$clientID)->limit('20')->get();
+				 
+				   ->where('assigned_leads.client_id',$clientID)->limit('200')->get();
 		
         return view('business.myLead',['leads'=>$leads]);
     }
@@ -843,10 +847,11 @@ class BusinessController extends Controller
 				  ->leftjoin('citylists','leads.city_id','=','citylists.id')		 
 				   ->leftjoin('areas','leads.area_id','=','areas.id')		 
 				   ->leftjoin('zones','leads.zone_id','=','zones.id')		 
-				   ->select('leads.*','assigned_leads.client_id','assigned_leads.lead_id','assigned_leads.created_at as created','areas.area','zones.zone')				 
+				   ->select('leads.*','assigned_leads.*','assigned_leads.client_id as clientId','assigned_leads.lead_id','assigned_leads.id as assignId','assigned_leads.created_at as created','areas.area','zones.zone')				 
 				   
 				   ->orderBy('assigned_leads.created_at','desc')
-				   ->where('assigned_leads.client_id',$clientID)->limit('20')->get();
+				     ->where('assigned_leads.favoriteLead','1')
+				   ->where('assigned_leads.client_id',$clientID)->limit('200')->get();
 				
         return view('business.favorite-enquiry',['leads'=>$leads]);
     }
@@ -859,7 +864,7 @@ class BusinessController extends Controller
 				  ->leftjoin('citylists','leads.city_id','=','citylists.id')		 
 				   ->leftjoin('areas','leads.area_id','=','areas.id')		 
 				   ->leftjoin('zones','leads.zone_id','=','zones.id')		 
-				   ->select('leads.*','assigned_leads.client_id','assigned_leads.lead_id','assigned_leads.created_at as created','areas.area','zones.zone')				 
+				   ->select('leads.*','assigned_leads.*','assigned_leads.client_id as clientId','assigned_leads.lead_id','assigned_leads.id as assignId','assigned_leads.created_at as created','areas.area','zones.zone')				 
 				   
 				   ->orderBy('assigned_leads.created_at','desc')
 				   ->where('assigned_leads.client_id',$clientID)->limit('20')->get();
@@ -1331,6 +1336,64 @@ class BusinessController extends Controller
 		}		
 	}
 	
+
+	public function pauseLead(Request $request){
+ 
+		$client = Client::find($request->client_id);
+ 
+        if (!$client) {
+            return response()->json(['status' => false, 'message' => 'Client not found'], 404);
+        }
+		 
+		if($request->pauseLead == 'true'){
+		 
+				$client->pauseLead = 1;
+		}else{
+		 
+			$client->pauseLead = 0;
+		}
+        if ($client->save()){
+ 				return response()->json(['status' => true, 'message' => 'Pause lead updated']);
+		}else{
+			return response()->json(['status' => false, 'message' => 'Pause lead updated']);
+	
+
+		}
+
+       
+	}
+
+	public function readLead(Request $request){
+  	 
+		$assignedLead = AssignedLead::find($request->assingId);
+ 
+        if (!$assignedLead) {
+            return response()->json(['status' => false, 'message' => 'assignedLead not found'], 404);
+        }
+		
+		$assignedLead->readLead = 1;
+        if ($assignedLead->save()){
+ 				return response()->json(['status' => true, 'message' => 'Pause lead updated']);
+		}else{
+			return response()->json(['status' => false, 'message' => 'Pause lead updated']);
+		}     
+	}
+
+	public function favoritleads(Request $request){
+  	 
+		$assignedLead = AssignedLead::find($request->assingId);
+ 
+        if (!$assignedLead) {
+            return response()->json(['status' => false, 'message' => 'assignedLead not found'], 404);
+        }
+		
+		$assignedLead->favoriteLead = 1;
+        if ($assignedLead->save()){
+ 				return response()->json(['status' => true, 'message' => 'Pause lead updated']);
+		}else{
+			return response()->json(['status' => false, 'message' => 'Pause lead updated']);
+		}     
+	}
 	
 	
 	

@@ -24,7 +24,11 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
         </div>
         
     </div> 
-          
+             <div class="status">
+                <span><a href="{{ url('business/myLead')}}">Total Lead</a> | </span>
+                <span><a href="{{ url('business/package')}}">Platinum</a></span>
+                <span>0h</span>
+            </div>
         </div>
 
         <div class="enquiries-section">

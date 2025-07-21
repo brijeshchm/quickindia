@@ -16,8 +16,8 @@
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     
     # Redirect to  www
-    RewriteCond %{HTTP_HOST} ^quickindia\.in [NC]
-    RewriteRule ^(.*)$ https://www.quickindia.in/$1 [L,R=301,NC]
+    #RewriteCond %{HTTP_HOST} ^quickindia\.in [NC]
+   # RewriteRule ^(.*)$ https://www.quickindia.in/$1 [L,R=301,NC]
     
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d

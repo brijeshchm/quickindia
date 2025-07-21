@@ -2,39 +2,39 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="<?php echo asset('public/admin/vendor/jquery/jquery.min.js'); ?>"></script>
+    <script src="<?php echo asset('admin/vendor/jquery/jquery.min.js'); ?>"></script>
 	
 	<!-- Select2 Core JS -->
-    <script src="<?php echo asset('public/admin/vendor/select2/js/select2.full.js'); ?>"></script>
+    <script src="<?php echo asset('admin/vendor/select2/js/select2.full.js'); ?>"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo asset('public/admin/vendor/bootstrap/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo asset('admin/vendor/bootstrap/js/bootstrap.min.js'); ?>"></script>
 	
     <!-- Bootstrap DateTimePicker -->
-    <script src="<?php echo asset('public/vendor/bootstrap-datetimepicker/build/js/moment.min.js'); ?>"></script>
-    <script src="<?php echo asset('public/vendor/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'); ?>"></script>
+    <script src="<?php echo asset('vendor/bootstrap-datetimepicker/build/js/moment.min.js'); ?>"></script>
+    <script src="<?php echo asset('vendor/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'); ?>"></script>
 	
 	<!-- TINY MCE Editor -->
-    <script src="<?php echo asset('public/vendor/tinymce/tinymce.jquery.min.js'); ?>"></script>
+    <script src="<?php echo asset('vendor/tinymce/tinymce.jquery.min.js'); ?>"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="<?php echo asset('public/admin/vendor/metisMenu/metisMenu.min.js'); ?>"></script>
-	<script src="{{ asset('public/admin/vendor/chosen-js/chosen.jquery.js') }}"></script>
+    <script src="<?php echo asset('admin/vendor/metisMenu/metisMenu.min.js'); ?>"></script>
+	<script src="{{ asset('admin/vendor/chosen-js/chosen.jquery.js') }}"></script>
     <!-- DataTables JavaScript -->
-    <script src="<?php echo asset('public/admin/vendor/datatables/js/jquery.dataTables.min.js'); ?>"></script>
-    <script src="<?php echo asset('public/admin/vendor/datatables-plugins/dataTables.bootstrap.min.js'); ?>"></script>
-    <script src="<?php echo asset('public/admin/vendor/datatables-responsive/dataTables.responsive.js'); ?>"></script>	
+    <script src="<?php echo asset('admin/vendor/datatables/js/jquery.dataTables.min.js'); ?>"></script>
+    <script src="<?php echo asset('admin/vendor/datatables-plugins/dataTables.bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo asset('admin/vendor/datatables-responsive/dataTables.responsive.js'); ?>"></script>	
 	
     <!-- Morris Charts JavaScript -->
-   <!-- <script src="<?php echo asset('public/admin/vendor/raphael/raphael.min.js'); ?>"></script>
-    <script src="<?php echo asset('public/admin/vendor/morrisjs/morris.min.js'); ?>"></script>
-    <script src="<?php echo asset('public/admin/data/morris-data.js'); ?>"></script>-->
+   <!-- <script src="<?php echo asset('admin/vendor/raphael/raphael.min.js'); ?>"></script>
+    <script src="<?php echo asset('admin/vendor/morrisjs/morris.min.js'); ?>"></script>
+    <script src="<?php echo asset('admin/data/morris-data.js'); ?>"></script>-->
 
     <!-- Custom Theme JavaScript -->
-    <script src="<?php echo asset('public/admin/dist/js/sb-admin-2.js'); ?>"></script>
-	<script src="<?php echo asset('public/admin/dist/app/app.js') ?>"></script>
-    <script src="<?php echo asset('public/admin/dist/app/counsellorDashboardController.js') ?>"></script>
-    <script src="<?php echo asset('public/admin/dist/app/userController.js') ?>"></script>
+    <script src="<?php echo asset('admin/dist/js/sb-admin-2.js'); ?>"></script>
+	<script src="<?php echo asset('admin/dist/app/app.js') ?>"></script>
+    <script src="<?php echo asset('admin/dist/app/counsellorDashboardController.js') ?>"></script>
+    <script src="<?php echo asset('admin/dist/app/userController.js') ?>"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <!--script>
     $(document).ready(function() {
@@ -112,9 +112,9 @@
 	<script type='text/javascript'>
 	jQuery(document).ready(function(jQuery){jQuery.datepicker.setDefaults({"closeText":"Close","currentText":"Today","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"nextText":"Next","prevText":"Previous","dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesMin":["S","M","T","W","T","F","S"],"dateFormat":"MM d, yy","firstDay":1,"isRTL":false});});
 	</script>
-	<script src="<?php echo asset('public/admin/vendor/matchHeight/jquery.matchHeight-min.js'); ?>"></script>
-    <script src="<?php echo asset('public/admin/dist/js/script.js'); ?>"></script>
-	        <script src="{{asset('public/admin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
+	<script src="<?php echo asset('admin/vendor/matchHeight/jquery.matchHeight-min.js'); ?>"></script>
+    <script src="<?php echo asset('admin/dist/js/script.js'); ?>"></script>
+	        <script src="{{asset('admin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
 	<script type="text/javascript">
  
 		
