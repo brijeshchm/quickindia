@@ -61,7 +61,7 @@ class razorpayController extends Controller
 	}else{
 		$data=array();
 	}
-	echo "<pre>";print_r($data);die;
+//	echo "<pre>";print_r($data);die;
 		return view('business.razorpay.pay-checkout',['data'=>$data]);
  
 	}
@@ -162,7 +162,7 @@ class razorpayController extends Controller
      */
 	public function checkOut(Request $request){
 		
-		echo "<pre>";print_r($_GET);die;
+	//ss	echo "<pre>";print_r($_GET);die;
 		
 		//echo "<pre>";print_r($_GET);die;
 		$data =$this->dataDecodeJsonBase64($_GET['o']);
