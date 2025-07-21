@@ -85,14 +85,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">Buy Details <?php   
-                  
-          
-           $newDate = date('Y-m-d', strtotime(now() . ' +365 days'));
-                echo $newDate;
-                  
-                  
-                  ?></h5>
+                  <h5 class="card-title">Buy Details </h5>
 
                   <div class="row">
                     <div class="col-lg-2 col-md-4 label "><i class="bi bi-currency-rupee"></i> 1000: </div>
@@ -125,8 +118,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quickinida
                         $data2['country'] = $client->country;
                         $data2['state'] = $client->state;
                         $data2['city'] = $client->city;
-                        $data2['id'] = $client->id;
-                        $data2['username'] = $client->username;
+                        $data1['id'] = $client->id;
+                        $data1['username'] = $client->username;
                         $resultData2000 = dataEncodeJsonBase64($data2);
                     ?>
                      <div class="col-lg-3 col-md-8"> <a href="{{url('business/pay-deposit/?status=correction&o='.$resultData2000)}}">Buy Package</a></div>
