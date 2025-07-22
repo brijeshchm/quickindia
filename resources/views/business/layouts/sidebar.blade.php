@@ -106,7 +106,7 @@
           </li>
           <li>
             <a class="<?php if(Request::segment(2)=='billing-history') { echo "active"; } ?>" href="{{url('business/billing-history')}}">
-              <i class="bi bi-circle"></i><span>invoice History</span>
+              <i class="bi bi-circle"></i><span>Invoice History</span>
             </a>
           </li>
           <li>
