@@ -177,22 +177,14 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
                     <td data-label="Value 2">184.00</td>
                     <td data-label="Total">1206.00</td>
                 </tr>
-                <tr class="expanded-details">
-                    <td colspan="4">
-                        Breakdown: Base: 1000.00, Tax: 206.00
-                    </td>
-                </tr>
+              
                 <tr class="data-row">
                     <td data-label="Date">08 Feb 2025</td>
                     <td data-label="Value 1">1022.00</td>
                     <td data-label="Value 2">184.00</td>
                     <td data-label="Total">1206.00</td>
                 </tr>
-                <tr class="expanded-details">
-                    <td colspan="4">
-                        Breakdown: Base: 1000.00, Tax: 206.00
-                    </td>
-                </tr>
+            
                 <tr class="data-row">
                     <td data-label="Date">08 Feb 2025</td>
                     <td data-label="Value 1">1022.00</td>
