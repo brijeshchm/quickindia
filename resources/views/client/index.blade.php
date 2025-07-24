@@ -635,7 +635,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
          <div class="col-md-2">
             <div class="popular-div">
                <figure><a href="{{url('makeup-artists')}}" title="Makeup Artists" tabindex="0">
-                  <img class="" src="popular/Make293-280.jpg"  alt=""></a>
+                  <img class="" src="popular/Make293-280.jpg"  alt="makeup"></a>
                </figure>
                <div class="grid-info ">
                   <h3><a href="{{url('makeup-artists')}}"   tabindex="0"> <span>Makeup Artists</span> </a></h3>
@@ -645,7 +645,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
          <div class="col-md-2">
             <div class="popular-div">
                <figure><a href="{{url('mehendi-artists')}}" title="Mehendi Artists" tabindex="0">
-                  <img class="" src="popular/Mehendi-Artists.jpg"  alt="" ></a>
+                  <img class="" src="popular/Mehendi-Artists.jpg"  alt="Mehendi" ></a>
                </figure>
                <div class="grid-info ">
                   <h3><a href="{{url('mehendi-artists')}}"   tabindex="0"> <span>Mehendi Artists</span> </a></h3>
@@ -655,7 +655,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
          <div class="col-md-2">
             <div class="popular-div">
                <figure><a href="{{url('bridal-wear')}}" title="Bridal Wear" tabindex="0">
-                  <img class="" src="popular/Bridal-Wear.jpg"  alt="" ></a>
+                  <img class="" src="popular/Bridal-Wear.jpg"  alt="Bridal" ></a>
                </figure>
                <div class="grid-info ">
                   <h3><a href="{{url('bridal-wear')}}"   tabindex="0"> <span>Bridal Wear</span> </a></h3>
