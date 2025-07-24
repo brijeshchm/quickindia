@@ -49,19 +49,7 @@
      ?>
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{url('business/dashboard')}}" class="logo d-flex align-items-center">
-        <?php  
-        			if(!empty($client->logo)){
-								$logo = unserialize($client->logo);
-								if(!isset($logo['thumbnail'])){
-									$logo['thumbnail'] = $logo['large'];
-								}								
-								$image = $logo['large']['src'];
-        ?>
-        <img src="{{asset($image)}}" alt="">
-        <?php  }else{ ?>
-        
-        <?php 
-        }  ?>
+       
         <img src="{{asset('client/images/quickind-logo-blue.png')}}" alt="">
         <span class="d-none d-lg-block">{{ $client->business_name ?? 'Quick India' }}</span>
       </a>
@@ -159,7 +147,7 @@
  
 <div class="patti-header">
     <div class="info-head">
-        <div class="package"><a href="{{ url('business/package')}}">{{ $client->client_type ?? '' }}  </a></div>
+        <div class="package"><a href="{{ url('business/package')}}"><?php if($client->client_type=='count_based_subscription'){  echo "Subscription"; }else{  echo $client->client_type; }  ?> </a></div>
         <div class="expire">Expire: {{ date('d M, Y',strtotime($client->expired_on)) ?? '' }}</div>
        <form class="profileSave" method="POST">
         <div class="form-check form-switch">

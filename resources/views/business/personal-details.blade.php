@@ -25,7 +25,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
  
  
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Profile Information</button>
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Personal Details</button>
                 </li>
 
                 <li class="nav-item profile_success">
