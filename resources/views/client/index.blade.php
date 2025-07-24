@@ -285,12 +285,12 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
             <img src="{{asset('img/Rent-buy.png')}}"></a>
              </div>
             <span class="title-serv"><a href="{{url(strtolower(str_replace(" ","-",$locationCity)).'/categories/rent-buy')}}" >Rent & Buy</a></span>
-         </div>
+         </div>          
          <div class="img-items">       
-         <div class="items"><a href="{{url('categories/sports-academy')}}" >
+         <div class="items"><a href="{{url('child/sports-academy')}}" >
             <img src="{{asset('img/sports.png')}}"></a>
              </div>
-            <span class="title-serv"><a href="{{url('categories/sports-academy')}}" >Sport Academy</a></span>
+            <span class="title-serv"><a href="{{url('child/sports-academy')}}" >Sport Academy</a></span>
          </div>
          <div class="img-items">   
          <div class="items"><a href="{{('/pg-hostels')}}" >

@@ -370,7 +370,7 @@ class ChildCategoryController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        //
+       
 		if($request->ajax()){
 			if(!$request->user()->current_user_can('administrator')){
 				return response()->json(['status'=>0,'msg'=>'Unauthorised access'],200);
