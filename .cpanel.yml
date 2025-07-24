@@ -1,4 +1,4 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/quickrqw/payout.quickindia.in/
+    - export DEPLOYPATH=/home/quickrqw/public_html/
     - /bin/cp * $DEPLOYPATH 
