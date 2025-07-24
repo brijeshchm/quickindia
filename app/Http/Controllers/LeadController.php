@@ -2389,17 +2389,20 @@ class LeadController extends Controller
 									}
 									else if($keyword->category=='Category 2'){
 									$coinsAmt = $keywordSellCount->cat2_price;
-									}
-									else if($keyword->category=='Category 3'){
+									}else if($keyword->category=='Category 3'){
 									$coinsAmt = $keywordSellCount->cat3_price;
+									}else if($keyword->category=='Category 4'){
+									$coinsAmt = $keywordSellCount->cat4_price;
+									}else if($keyword->category=='Category 5'){
+									$coinsAmt = $keywordSellCount->cat5_price;
 									}else{
-									$coinsAmt = 0;
+									$coinsAmt = 70;
 									}
 									
 									
 									$client->coins_amt = $client->coins_amt - $coinsAmt;
 									$client->save();
-								
+									$assignedLead->coins= $coinsAmt;
 										if($assignedLead->save()){
 											
 											$lead->push_by=Auth::user()->id;

@@ -420,7 +420,9 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     <div class="modal-body" style="padding:0;">
         <div class="imgclass"></div>
-    <div class="successhtml"></div><div class="failedhtml"></div><div style="text-align:center;"></div></div></div></div></div>
+    <div class="successhtml"></div><div class="failedhtml"></div><div style="text-align:center;"></div></div></div></div>
+  
+  </div>
   <!-- Vendor JS Files -->
    
   <script src="{{asset('business/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script> 

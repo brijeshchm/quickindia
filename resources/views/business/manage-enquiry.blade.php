@@ -53,9 +53,9 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
 
                       $client = App\Models\Client\Client::find($clientID);  ?>
                         <div class="form-check form-switch">
-                      
-                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  value="{{ $client->pauseLead??'' }}" data-client-id="{{ $client->id }}" @if(!empty($client->pauseLead)) {{ "checked"}} @endif>
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Pause Lea</label>
+                       
+                         <input class="form-check-input" type="checkbox" id="pauseLeadChecked"  value="{{ $client->pauseLead??'' }}" data-client_id="{{ $client->id }}" @if(!empty($client->pauseLead)) {{ "checked"}} @endif>
+                       <label class="form-check-label" for="pauseLeadChecked"><h4>Pause Lead</h4></label>
                         </div>
                     </div>
                  

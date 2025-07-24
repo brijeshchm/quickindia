@@ -833,6 +833,7 @@ class BusinessController extends Controller
 				   ->select('leads.*','assigned_leads.*','assigned_leads.client_id as clientId','assigned_leads.lead_id','assigned_leads.id as assignId','assigned_leads.created_at as created','areas.area','zones.zone')				 
 				   
 				   ->orderBy('assigned_leads.created_at','desc')
+				   ->where('assigned_leads.favoriteLead','!=', '1')
 				 
 				   ->where('assigned_leads.client_id',$clientID)->limit('200')->get();
 		
@@ -1371,7 +1372,7 @@ class BusinessController extends Controller
             return response()->json(['status' => false, 'message' => 'assignedLead not found'], 404);
         }
 		
-		$assignedLead->readLead = 1;
+		$assignedLead->readLead = '1';
         if ($assignedLead->save()){
  				return response()->json(['status' => true, 'message' => 'Pause lead updated']);
 		}else{
@@ -1387,7 +1388,7 @@ class BusinessController extends Controller
             return response()->json(['status' => false, 'message' => 'assignedLead not found'], 404);
         }
 		
-		$assignedLead->favoriteLead = 1;
+		$assignedLead->favoriteLead = '1';
         if ($assignedLead->save()){
  				return response()->json(['status' => true, 'message' => 'Pause lead updated']);
 		}else{

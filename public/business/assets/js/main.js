@@ -819,6 +819,34 @@ var enquiryController  = (function(){
 		
 	});
 
+	$(document).on('change','#pauseLeadChecked',function(e){
+		e.preventDefault();	
+		var clientId   = $(this).attr("data-client_id");	 
+		const isChecked = $(this).is(':checked');
+
+		console.log('Checkbox is checked:', isChecked);
+        console.log('Client ID:', clientId);
+
+		$.ajax({
+			type: "POST",
+		 	url:"/business/pauseLead",
+			data: {client_id: clientId,pauseLead: isChecked},
+			dataType: 'json',
+			success: function(response) {				
+				if(response.status){					  
+				 $(this).checked = !isChecked
+				 
+				}else{
+					  
+				}				
+			},
+			error: function(response) {
+			 
+			}
+		});	
+		
+	});
+
 
   $(document).ready(function(){
   
