@@ -285,12 +285,12 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
             <img src="{{asset('img/Rent-buy.png')}}"></a>
              </div>
             <span class="title-serv"><a href="{{url(strtolower(str_replace(" ","-",$locationCity)).'/categories/rent-buy')}}" >Rent & Buy</a></span>
-         </div>          
+         </div>
          <div class="img-items">       
-         <div class="items"><a href="{{url('child/sports-academy')}}" >
+         <div class="items"><a href="{{url('categories/sports-academy')}}" >
             <img src="{{asset('img/sports.png')}}"></a>
              </div>
-            <span class="title-serv"><a href="{{url('child/sports-academy')}}" >Sport Academy</a></span>
+            <span class="title-serv"><a href="{{url('categories/sports-academy')}}" >Sport Academy</a></span>
          </div>
          <div class="img-items">   
          <div class="items"><a href="{{('/pg-hostels')}}" >
@@ -358,10 +358,10 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
              </div>
             <span class="title-serv"><a href="{{url('job-training')}}" >Jobs</a></span>
          </div>
-         <div class="img-items">             <div class="items"><a href="{{url('tours-&-travels')}}" >
+         <div class="img-items">             <div class="items"><a href="{{url('tours-and-travels')}}" >
             <img src="{{asset('images/tour-travels.png')}}"></a>
              </div>
-            <span class="title-serv"><a href="{{url('tours-&-travels')}}" >Tours & Travels</a></span>
+            <span class="title-serv"><a href="{{url('tours-and-travels')}}" >Tours & Travels</a></span>
          </div>
          <div class="img-items">             <div class="items"><a href="{{url('aws-training')}}" >
             <img src="{{asset('images/aws-cloud.png')}}"></a>
@@ -635,7 +635,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
          <div class="col-md-2">
             <div class="popular-div">
                <figure><a href="{{url('makeup-artists')}}" title="Makeup Artists" tabindex="0">
-                  <img class="" src="popular/Make293-280.jpg"  alt="makeup"></a>
+                  <img class="" src="popular/makeup-artists.jpg"  alt=""></a>
                </figure>
                <div class="grid-info ">
                   <h3><a href="{{url('makeup-artists')}}"   tabindex="0"> <span>Makeup Artists</span> </a></h3>
@@ -645,7 +645,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
          <div class="col-md-2">
             <div class="popular-div">
                <figure><a href="{{url('mehendi-artists')}}" title="Mehendi Artists" tabindex="0">
-                  <img class="" src="popular/Mehendi-Artists.jpg"  alt="Mehendi" ></a>
+                  <img class="" src="popular/Mehendi-Artists.jpg"  alt="" ></a>
                </figure>
                <div class="grid-info ">
                   <h3><a href="{{url('mehendi-artists')}}"   tabindex="0"> <span>Mehendi Artists</span> </a></h3>
@@ -655,7 +655,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
          <div class="col-md-2">
             <div class="popular-div">
                <figure><a href="{{url('bridal-wear')}}" title="Bridal Wear" tabindex="0">
-                  <img class="" src="popular/Bridal-Wear.jpg"  alt="Bridal" ></a>
+                  <img class="" src="popular/Bridal-Wear.jpg"  alt="" ></a>
                </figure>
                <div class="grid-info ">
                   <h3><a href="{{url('bridal-wear')}}"   tabindex="0"> <span>Bridal Wear</span> </a></h3>
@@ -683,7 +683,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
          <div class="col-md-2">
             <div class="popular-div">
                <figure><a href="{{url(strtolower(str_replace(" ","-",$locationCity)).'/categories/entrance-exams-coaching')}}" title="UPSC & IAS" tabindex="0">
-                  <img class="" src="popular/UPSC-IAS.jpg"  alt="UPSC-IAS" ></a>
+                  <img class="" src="popular/UPSC-IAS.jpg"  alt="" ></a>
                </figure>
                <div class="grid-info ">
                   <h3><a href="{{url(strtolower(str_replace(" ","-",$locationCity)).'/categories/entrance-exams-coaching')}}"   tabindex="0"> <span>UPSC & IAS</span> </a></h3>
