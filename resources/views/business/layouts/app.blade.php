@@ -57,9 +57,9 @@
 								}								
 								$image = $logo['large']['src'];
         ?>
-
+        <img src="{{asset($image)}}" alt="">
         <?php  }else{ ?>
-         <img src="{{asset($image)}}" alt="">
+        
         <?php 
         }  ?>
         <img src="{{asset('client/images/quickind-logo-blue.png')}}" alt="">
