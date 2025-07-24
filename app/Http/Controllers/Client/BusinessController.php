@@ -562,11 +562,24 @@ class BusinessController extends Controller
     { 
         $clientID = auth()->guard('clients')->user()->id;
     	$client = Client::find($clientID);
+		//$coinsLeads= AssignedLead::where('client_id',$client->id)->get();
+		$coinsLeads = DB::table('assigned_leads')
+		->join('leads','leads.id','=','assigned_leads.lead_id')		 
+		->leftjoin('citylists','leads.city_id','=','citylists.id')		 
+		->leftjoin('keyword','assigned_leads.kw_id','=','keyword.id')	 
+		 	 
+		->select('leads.*','assigned_leads.client_id','assigned_leads.lead_id','assigned_leads.created_at as created','assigned_leads.coins','assigned_leads.scrapLead')
+
+		->orderBy('assigned_leads.created_at','desc')
+	 
+		->where('assigned_leads.client_id',$clientID)->limit('200')->get();
+
+		//echo "<pre>";print_r($coinsLeads);die;
         $search = [];
 		if($request->has('search')){
 			$search = $request->input('search');
 		}
-        return view('business.coins-history',['search'=>$search,'client'=>$client]);
+        return view('business.coins-history',['search'=>$search,'client'=>$client,'coinsLeads'=>$coinsLeads]);
     }
     
     
@@ -855,6 +868,24 @@ class BusinessController extends Controller
 				   ->where('assigned_leads.client_id',$clientID)->limit('200')->get();
 				
         return view('business.favorite-enquiry',['leads'=>$leads]);
+    }
+	
+	
+	public function scrapEnquiry(Request $request)
+    {
+		$clientID = auth()->guard('clients')->user()->id;
+		$leads = DB::table('leads')
+				   ->join('assigned_leads','leads.id','=','assigned_leads.lead_id')		 
+				  ->leftjoin('citylists','leads.city_id','=','citylists.id')		 
+				   ->leftjoin('areas','leads.area_id','=','areas.id')		 
+				   ->leftjoin('zones','leads.zone_id','=','zones.id')		 
+				   ->select('leads.*','assigned_leads.*','assigned_leads.client_id as clientId','assigned_leads.lead_id','assigned_leads.id as assignId','assigned_leads.created_at as created','areas.area','zones.zone')				 
+				   
+				   ->orderBy('assigned_leads.created_at','desc')
+				     ->where('assigned_leads.favoriteLead','1')
+				   ->where('assigned_leads.client_id',$clientID)->limit('200')->get();
+				
+        return view('business.scrap-enquiry',['leads'=>$leads]);
     }
 	
 	public function manageEnquiry(Request $request)
@@ -1357,6 +1388,57 @@ class BusinessController extends Controller
  				return response()->json(['status' => true, 'message' => 'Pause lead updated']);
 		}else{
 			return response()->json(['status' => false, 'message' => 'Pause lead updated']);
+	
+
+		}
+
+       
+	}
+
+	public function scrapLead(Request $request){
+
+	 
+		$assignedLead = AssignedLead::find($request->lead_id);
+ 
+        if (!$assignedLead) {
+            return response()->json(['status' => false, 'message' => 'not found'], 404);
+        }
+		 
+		if($request->isChecked == 'true'){
+			$assignedLead->scrapLead = $request->val;
+		} 
+ 
+	 
+ 
+
+
+
+
+        if ($assignedLead->save()){
+
+		$counts = DB::table('assigned_leads')
+		->select('lead_id')
+		->selectRaw('COUNT(client_id) as client_count')
+		->selectRaw('COUNT(lead_id) as lead_count')
+		->selectRaw('COUNT(scraplead) as scraplead_count')
+		->where('lead_id', $assignedLead->lead_id)
+		->first();
+
+		if(($counts->lead_count == $counts->client_count ) && ($counts->lead_count<=   $counts->scraplead_count)){
+			$assignleads  = DB::table('assigned_leads')->where('lead_id',$counts->lead_id)->whereNotNull('scrapLead')->get();
+			if(!empty($assignleads)){
+				foreach($assignleads as $assignlead){
+				$client = Client::find($assignlead->client_id );
+				$client->coins_amt = $client->coins_amt + $assignlead->coins;
+				$client->scrapApprove = '1';    
+				//$client->save();
+				}
+			}		
+		}
+ 		return response()->json(['status' => true, 'message' => 'Scrap lead updated']);
+
+		}else{
+			return response()->json(['status' => false, 'message' => 'Scrap lead updated']);
 	
 
 		}

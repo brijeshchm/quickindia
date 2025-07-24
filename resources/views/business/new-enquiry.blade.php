@@ -54,13 +54,13 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
                         <div class="details-section">
                     <div class="title">Enquired for <strong>{{$lead->kw_text}}</strong> Send price and other details.</div>
                     <div class="source">@if($lead->email) <i class="bi bi-envelope"></i>{{$lead->email}}@endif</div>
-                     <p> </p>
+                     <p>  <i class="bi bi-telephone-fill"></i><a href="tel:91{{$lead->mobile}}"> {{$lead->mobile}}</a>   <a href="https://wa.me/91{{$lead->mobile}}" target="_blank" aria-label="Whatsup"><i class="bi bi-whatsapp" style="color:#14D73F"></i>{{$lead->mobile}}</a></p>
                 </div>
                 <div class="show-details" onclick="toggleDetails(this)">Show details</div>
                     </div>
                      
                   <div class="cont-no">
-                    <i class="bi bi-telephone-fill"></i><a href="tel:91{{$lead->mobile}}"> {{$lead->mobile}}</a>   <a href="https://wa.me/91{{$lead->mobile}}" target="_blank" aria-label="Whatsup"><i class="bi bi-whatsapp" style="color:#14D73F"></i>{{$lead->mobile}}</a>
+                    <!-- <i class="bi bi-telephone-fill"></i><a href="tel:91{{$lead->mobile}}"> {{$lead->mobile}}</a>   <a href="https://wa.me/91{{$lead->mobile}}" target="_blank" aria-label="Whatsup"><i class="bi bi-whatsapp" style="color:#14D73F"></i>{{$lead->mobile}}</a> -->
                   </div>
                  
                     <div class="enquiry-time"><i class="bi bi-clock"></i> <?php  get_time(strtotime($lead->created)); ?> ago</div>
