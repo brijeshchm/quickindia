@@ -151,11 +151,11 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
     </div>
     <div class="checkbox-container">
         <label class="checkbox-label">
+ 
             <input type="radio" class="form-check-input scrapLeadcheck" name="scrapLead" value="7" data-lead_id="{{ $lead->assignId }}">
+ 
+            <input type="radio" class="form-check-input" id="gridRadios5" name="scrapLead" value="5">
             <span class="checkbox-text">Student has already hire tutor for this requirement </span>
-        </label>
-    </div>
-    <div class="checkbox-container">
         <label class="checkbox-label">
             <input type="radio" class="form-check-input scrapLeadcheck"  name="scrapLead" value="8" data-lead_id="{{ $lead->assignId }}">
             <span class="checkbox-text">Student is showing suspicious behaviour, with an intention to do a payment scam  or any other misuse.  </span>
@@ -217,6 +217,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
         .checkbox-label:hover {
             background-color: #e0e0e0;
         }
+ 
         .checkbox-text{
           margin-left: 5px;
         }
@@ -245,6 +246,9 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
     float: left;
     margin-left: -1.5em;
 } */
+ 
+        
+ 
     </style>
      <script>
         // Tab switching functionality

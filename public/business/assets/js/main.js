@@ -847,6 +847,7 @@ var enquiryController  = (function(){
 		
 	});
 
+ 
 	$(document).on('change','.scrapLeadcheck',function(e){
 		e.preventDefault();	
 		var val   = $(this).val();	 
@@ -877,6 +878,7 @@ var enquiryController  = (function(){
 		
 	});
 
+ 
 
   $(document).ready(function(){
   

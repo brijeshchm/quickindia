@@ -37,7 +37,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
             <div class="tab-content active" id="all">
                 @if(!empty($leads))
                 @foreach($leads as $lead)
-                <div class="enquiry-item">
+                <div class="enquiry-item assignedLeadsClick">
                     <div class="avatar"><?php  echo ucfirst(substr($lead->name,0,1)); ?></div>
                     <div class="enquiry-details">
                         <h4><i class="bi bi-person"></i> {{ucfirst($lead->name)}} <span class="tag">Favorite</span> <i class="fa-regular bi-star favorite-icon <?php  if($lead->favoriteLead){ echo "favorited"; } ?>" data-favoritleads= "{{ $lead->assignId }}"  ></i></h4>

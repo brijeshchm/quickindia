@@ -15,39 +15,27 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
     <section class="section profile">
       <div class="row">
         
-        <div class="col-xl-12">
+
+
+       <div class="col-xl-12">
 
           <div class="card">
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
-              <ul class="nav nav-tabs nav-tabs-bordered">
+          
+               
+              
+              
+               <div class="tab-content pt-2">
 
- 
- 
-                <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Manage Enquiry</button>
-                </li>
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  
 
-                <li class="nav-item profile_success">
-                    </li>
- 
-
-              </ul>
-              <div class="tab-content pt-2">
-
-             <style>
- 
-
+                  <div class="row">
+                    <div class="col-lg-4 col-md-4 label "> Pause Lead: </div>
+                    <div class="col-lg-4 col-md-8"> <form class="profileSave" method="POST">
+                 
         
-              </style>
-
-                <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
-                 
-                <form class="profileSave" method="POST">
-                 
-                      
-                              
-                    <div class="form-group">
                     
                     <?php   $clientID = auth()->guard('clients')->user()->id;
 
@@ -55,26 +43,39 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
                         <div class="form-check form-switch">
                        
                          <input class="form-check-input" type="checkbox" id="pauseLeadChecked"  value="{{ $client->pauseLead??'' }}" data-client_id="{{ $client->id }}" @if(!empty($client->pauseLead)) {{ "checked"}} @endif>
-                       <label class="form-check-label" for="pauseLeadChecked"><h4>Pause Lead</h4></label>
+                      
                         </div>
-                    </div>
+                
                  
           
  
 
                   
-                  </form><!-- End Profile Edit Form -->
+                  </form> </div>
+                   
+                     
+                  </div>
+                    <div class="row">
+                    <div class="col-lg-4 col-md-4 label ">Client Paid Status : </div>
+                    <div class="col-lg-4 col-md-8"> Active</div>
+                     
+                     <div class="col-lg-3 col-md-8"> <a href="">Un-Paid</a></div>
+                  </div>
+                  
+                       
 
+
+             
                 </div>
-
-                 
-                
-              </div><!-- End Bordered Tabs -->
+              </div> 
+              
+              
 
             </div>
           </div>
 
         </div>
+     
       </div>
     </section>
 
