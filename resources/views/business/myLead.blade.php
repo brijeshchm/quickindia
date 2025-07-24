@@ -33,13 +33,37 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
         </div>
 
         <div class="enquiries-section">
+ <?php 
+	  $counts = DB::table('assigned_leads')
+		->select('lead_id')
+		->selectRaw('COUNT(client_id) as client_count')
+		->selectRaw('COUNT(lead_id) as lead_count')
+		->selectRaw('COUNT(scraplead) as scraplead_count')
+		->where('lead_id', '156')
+		->first();
+
+		if(($counts->lead_count == $counts->client_count ) && ($counts->lead_count<=   $counts->scraplead_count+1)){
+			$assignleads  = DB::table('assigned_leads')->where('lead_id',$counts->lead_id)->where('scrapApprove','=','0')->get();
+			if(!empty($assignleads)){
+				foreach($assignleads as $assignlead){
+				$client = App\Models\Client\Client::find($assignlead->client_id );
+				$client->coins_amt = $client->coins_amt + $assignlead->coins;
+				$client->scrapApprove = '1';   
+        // echo "<pre>";print_r($client);
+			//	$client->save();
+				}
+			}		
+		}
+
  
+   // echo "<pre>";print_r($assignleads);die;
+    ?>
  
             <div class="tab-content active" id="all">
                 @if(!empty($leads))
                 @foreach($leads as $lead)
                  
-                <div class="enquiry-item assignedLeadsClick"  data-assigned_leads= "{{ $lead->assignId }}" data-client_id= "{{ $lead->clientId }}" style="<?php  if(!$lead->readLead){ echo "background:#ddd"; } ?>">
+                <div class="enquiry-item <?php if(!$lead->readLead){ ?>assignedLeadsClick <?php } ?>"  data-assigned_leads= "{{ $lead->assignId }}" data-client_id= "{{ $lead->clientId }}" style="<?php  if(!$lead->readLead){ echo "background:#ddd"; } ?>">
             
 
                     <div class="avatar"><?php  echo ucfirst(substr($lead->name,0,1)); ?>
@@ -68,11 +92,11 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
                 
                 <div class="scrapLead">
             
-               <button type="button" class="scrapbutton" data-bs-toggle="modal" data-bs-target="#basicModal">
+               <button type="button" class="scrapbutton" data-bs-toggle="modal" data-bs-target="#scrapModal_{{ $lead->assignId }}">
                 Scrap Lead
               </button>
 
-                <div class="modal fade" id="basicModal" tabindex="-1">
+                <div class="modal fade" id="scrapModal_{{ $lead->assignId }}" tabindex="-1">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -90,50 +114,50 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
  
     <div class="checkbox-container">
         <label class="checkbox-label">
-            <input type="radio" class="form-check-input" id="gridRadios1" name="scrapLead" value="1">
+            <input type="radio" class="form-check-input scrapLeadcheck" name="scrapLead" value="1" data-lead_id="{{ $lead->assignId }}">
             <span class="checkbox-text"> Student in just exploring & not planing to hire any tutor</span>
         </label>
     </div>
     <div class="checkbox-container">
         <label class="checkbox-label">
-            <input type="radio" class="form-check-input" id="gridRadios2" name="scrapLead" value="2" >
+            <input type="radio" class="form-check-input scrapLeadcheck" name="scrapLead" value="2" data-lead_id="{{ $lead->assignId }}">
             <span class="checkbox-text">Enquiry is posted by a tutor, an Institute or a tutor agency</span>
         </label>
     </div>
     <div class="checkbox-container">
         <label class="checkbox-label">
-            <input type="radio" class="form-check-input" id="gridRadios3" name="scrapLead" value="3" >
-            <span class="checkbox-text">Student has selected wrong category</span>
+            <input type="radio" class="form-check-input scrapLeadcheck" name="scrapLead" value="3" data-lead_id="{{ $lead->assignId }}">
+            <span class="checkbox-text"> Student has selected wrong category</span>
         </label>
     </div>
     <div class="checkbox-container">
         <label class="checkbox-label">
-            <input type="radio" class="form-check-input" id="gridRadios4" name="scrapLead" value="4" >
+            <input type="radio" class="form-check-input scrapLeadcheck" name="scrapLead" value="4" data-lead_id="{{ $lead->assignId }}">
             <span class="checkbox-text">Student has select wrong locality</span>
         </label>
     </div>
     <div class="checkbox-container">
         <label class="checkbox-label">
-            <input type="radio" class="form-check-input" id="gridRadios5" name="scrapLead" value="5" >
+            <input type="radio" class="form-check-input scrapLeadcheck" name="scrapLead" value="5" data-lead_id="{{ $lead->assignId }}">
             <span class="checkbox-text">Student is asking for only Female/Male tutor</span>
         </label>
     </div>
 
     <div class="checkbox-container">
         <label class="checkbox-label">
-            <input type="radio" class="form-check-input" id="gridRadios5" name="scrapLead" value="5">
+            <input type="radio" class="form-check-input scrapLeadcheck" name="scrapLead" value="6" data-lead_id="{{ $lead->assignId }}">
             <span class="checkbox-text">Student phone number is either invailid or not reachable or no response </span>
         </label>
     </div>
     <div class="checkbox-container">
         <label class="checkbox-label">
+ 
+            <input type="radio" class="form-check-input scrapLeadcheck" name="scrapLead" value="7" data-lead_id="{{ $lead->assignId }}">
+ 
             <input type="radio" class="form-check-input" id="gridRadios5" name="scrapLead" value="5">
             <span class="checkbox-text">Student has already hire tutor for this requirement </span>
-        </label>
-    </div>
-    <div class="checkbox-container">
         <label class="checkbox-label">
-            <input type="radio" class="form-check-input" id="gridRadios5" name="scrapLead" value="5">
+            <input type="radio" class="form-check-input scrapLeadcheck"  name="scrapLead" value="8" data-lead_id="{{ $lead->assignId }}">
             <span class="checkbox-text">Student is showing suspicious behaviour, with an intention to do a payment scam  or any other misuse.  </span>
         </label>
     </div>
@@ -193,7 +217,38 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
         .checkbox-label:hover {
             background-color: #e0e0e0;
         }
+ 
+        .checkbox-text{
+          margin-left: 5px;
+        }
+/* 
+        .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.form-check-input:focus {
+    border-color: #0d6efd;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+    background: #0d6efd;
+}
+.form-check-input:checked[type=radio] {
+    --bs-form-check-bg-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e);
+}
+.form-check {
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 1.5em;
+    margin-bottom: .125rem;
+}
+
+.form-check .form-check-input {
+    float: left;
+    margin-left: -1.5em;
+} */
+ 
         
+ 
     </style>
      <script>
         // Tab switching functionality

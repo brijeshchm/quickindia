@@ -53,7 +53,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
                   <tr>
                       
                     <th>
-                      <b>N</b>ame
+                    <b>N</b>ame
                     </th>
                     <th>Mobile</th>
                     <th>Email</th>

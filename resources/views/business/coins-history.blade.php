@@ -158,222 +158,88 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
             }
         }
     </style>
+         <div class="container">
+        <div class="header-enquiry">
+            <div class="enquiry-tabs">
+        <div class="tab">
+            <span>My Lead</span>
+            <span class="count"><?php if(!empty($coinsLeads)){ echo count($coinsLeads); } ?></span>
+        </div>
+        
+    </div> 
+            
+            <div class="status">
+                <span><a href="{{ url('business/myLead')}}">Total Lead</a> | </span>
+                <span><a href="{{ url('business/package')}}">Platinum</a></span>
+                <span>0h</span>
+            </div>
+        </div>
 
  <div class="table-container" id="tableContainer">
         <table>
             <thead>
                 <tr>
+                    <th>Date</th>
                     <th>Name</th>
-                    <th>Mobile</th>
+                    <th>Mobile</th>                   
                     <th>Service</th>
                     <th>Coins</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
                 <!-- Initially load first 10 data rows -->
-                <tr class="data-row">
+                <!-- <tr class="data-row">
                     <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
+                    <td data-label="Value 1">1000001</td>
                     <td data-label="Value 2">184.00</td>
                     <td data-label="Total">1206.00</td>
-                </tr>
+                </tr> -->
               
-                <tr class="data-row">
-                    <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1206.00</td>
-                </tr>
-            
-                <tr class="data-row">
-                    <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1206.00</td>
-                </tr>
-                <tr class="expanded-details">
-                    <td colspan="4">
-                        Breakdown: Base: 1000.00, Tax: 206.00
-                    </td>
-                </tr>
-                <tr class="data-row">
-                    <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1206.00</td>
-                </tr>
-                <tr class="expanded-details">
-                    <td colspan="4">
-                        Breakdown: Base: 1000.00, Tax: 206.00
-                    </td>
-                </tr>
-                <tr class="data-row">
-                    <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1206.00</td>
-                </tr>
-                <tr class="expanded-details">
-                    <td colspan="4">
-                        Breakdown: Base: 1000.00, Tax: 206.00
-                    </td>
-                </tr>
-                <tr class="data-row">
-                    <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1206.00</td>
-                </tr>
-                <tr class="expanded-details">
-                    <td colspan="4">
-                        Breakdown: Base: 1000.00, Tax: 206.00
-                    </td>
-                </tr>
-                <tr class="data-row">
-                    <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1206.00</td>
-                </tr>
-                <tr class="expanded-details">
-                    <td colspan="4">
-                        Breakdown: Base: 1000.00, Tax: 206.00
-                    </td>
-                </tr>
-                <tr class="data-row">
-                    <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1100.00</td>
-                </tr>
-              
-                <tr class="data-row">
-                    <td data-label="Date">08 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1200.00</td>
-                </tr>
-              
-                <tr class="data-row">
-                    <td data-label="Date">1 Feb 2025</td>
-                    <td data-label="Value 1">1022.00</td>
-                    <td data-label="Value 2">184.00</td>
-                    <td data-label="Total">1003.00</td>
-                </tr>
+               
               
             </tbody>
         </table>
     </div>
+    <?php if(!empty($coinsLeads)){
+            $coinsList = [];
+            foreach($coinsLeads as $coinsLead){
+ 
+            $coinsList[] = [
+            'name' => $coinsLead->name,
+            'mobile' => $coinsLead->mobile,           
+            'service' => $coinsLead->kw_text,
+            'coins' =>  (isset($coinsLead->scrapLead) && !empty($coinsLead->scrapLead)) ? "<span style='color:green'>" . $coinsLead->coins . "</span>" : "<span style='color:red;'> -" . $coinsLead->coins . " </span>",
+            'date' => date('d M Y',strtotime($coinsLead->created))
+            ];
+            }
+
+            } 
+
+    
+    ?>
  <script>
+
+
         const tableContainer = document.getElementById('tableContainer');
         const tableBody = document.getElementById('tableBody');
 
-        // Remaining data to load
-        const remainingData = [
-            {
-                date: "02 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 110.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            },
-            {
-                date: "03 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 120.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            }, {
-                date: "04 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 130.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            },
-            {
-                date: "05 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 140.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            }, {
-                date: "06 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 150.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            },
-            {
-                date: "07 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 160.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            }, {
-                date: "09 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 170.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            },
-            {
-                date: "10 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 180.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            }, {
-                date: "08 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 190.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            },
-            {
-                date: "11 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 200.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            }, {
-                date: "12 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 210.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            },
-            {
-                date: "13 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 220.00,
-                breakdown: { base: 1000.00, tax: 206.00 }
-            }, {
-                date: "14 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 230.00,
-                
-            },
-            {
-                date: "15 Feb 2025",
-                value1: 1022.00,
-                value2: 184.00,
-                total: 240.00,
-                
-            }
-        ];
+
+        const remainingData = 
+<?php  echo json_encode($coinsList); ?>;
+       
 
         // Function to append new rows
         function appendRows(dataArray) {
             dataArray.forEach(data => {
+                console.log(data.name);
                 const dataRow = document.createElement('tr');
                 dataRow.classList.add('data-row');
                 dataRow.innerHTML = `
                     <td data-label="Date">${data.date}</td>
-                    <td data-label="Value 1">${data.value1.toFixed(2)}</td>
-                    <td data-label="Value 2">${data.value2.toFixed(2)}</td>
-                    <td data-label="Total">${data.total.toFixed(2)}</td>
+                    <td data-label="Name">${data.name}</td>
+                    <td data-label="Mobile">${data.mobile}</td>                     
+                    <td data-label="Service">${data.service}</td>
+                    <td data-label="Coins">${data.coins}</td>
                 `;
 
                 const detailRow = document.createElement('tr');
@@ -406,7 +272,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
                 if (remainingData.length > 0) {
                     isLoading = true;
                     setTimeout(() => {
-                        appendRows(remainingData.splice(0, 2)); // Load 2 rows at a time
+                        appendRows(remainingData.splice(0, 5)); // Load 2 rows at a time
                         isLoading = false;
                     }, 500);
                 } else if (!hasShownNoDataMessage) {
@@ -442,8 +308,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
         const initialScrollEvent = new Event('scroll');
         tableContainer.dispatchEvent(initialScrollEvent);
     </script>
-</body>
-</html>
+    </div>
+ 
 
   </main>
 

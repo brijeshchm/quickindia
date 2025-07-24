@@ -13,19 +13,18 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
  
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>New Enquiries</h1>
+      <h1>Favorite Lead</h1>
     </div> 
      <div class="container">
         <div class="header-enquiry">
             <div class="enquiry-tabs">
         <div class="tab">
-            <span>New Lead</span>
+            <span>Favorite Lead</span>
             <span class="count"><?php if(!empty($leads)){ echo count($leads); } ?></span>
         </div>
         
     </div> 
-            
-            <div class="status">
+             <div class="status">
                 <span><a href="{{ url('business/myLead')}}">Total Lead</a> | </span>
                 <span><a href="{{ url('business/package')}}">Platinum</a></span>
                 <span>0h</span>
@@ -34,19 +33,14 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
 
         <div class="enquiries-section">
  
-        <style>
-            .assignedLeadsClick{
-                   cursor: pointer;
-            }
-        </style>
- 
+
             <div class="tab-content active" id="all">
                 @if(!empty($leads))
                 @foreach($leads as $lead)
-                <div class="enquiry-item assignedLeadsClick"  data-assigned_leads= "{{ $lead->assignId }}" data-client_id= "{{ $lead->clientId }}" style="<?php  if(!$lead->readLead){ echo "background:#ddd"; } ?>">
+                <div class="enquiry-item">
                     <div class="avatar"><?php  echo ucfirst(substr($lead->name,0,1)); ?></div>
                     <div class="enquiry-details">
-                        <h4><i class="bi bi-person"></i> {{ucfirst($lead->name)}} <span class="tag favoriteLead">NEW</span> <i class="fa-regular bi-star favorite-icon <?php  if($lead->favoriteLead){ echo "favorited"; } ?>" data-favoritleads= "{{ $lead->assignId }}"></i></h4>
+                        <h4><i class="bi bi-person"></i> {{ucfirst($lead->name)}} <span class="tag">Favorite</span> <i class="fa-regular bi-star favorite-icon <?php  if($lead->favoriteLead){ echo "favorited"; } ?>" data-favoritleads= "{{ $lead->assignId }}"  ></i></h4>
                         <p><i class="bi bi-book"></i> {{$lead->kw_text}}</p>
                         <p>Online Class</p>
                         <p>@if($lead->city_name) <i class="bi bi-pin-map-fill"></i>{{$lead->city_name}}@endif @if($lead->zone)<i class="bi bi-pin-map-fill"></i> {{$lead->zone}} @endif</p>
@@ -54,13 +48,15 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
                         <div class="details-section">
                     <div class="title">Enquired for <strong>{{$lead->kw_text}}</strong> Send price and other details.</div>
                     <div class="source">@if($lead->email) <i class="bi bi-envelope"></i>{{$lead->email}}@endif</div>
-                     <p>  <i class="bi bi-telephone-fill"></i><a href="tel:91{{$lead->mobile}}"> {{$lead->mobile}}</a>   <a href="https://wa.me/91{{$lead->mobile}}" target="_blank" aria-label="Whatsup"><i class="bi bi-whatsapp" style="color:#14D73F"></i>{{$lead->mobile}}</a></p>
+                     <p> </p>
                 </div>
                 <div class="show-details" onclick="toggleDetails(this)">Show details</div>
                     </div>
                      
                   <div class="cont-no">
-                    <!-- <i class="bi bi-telephone-fill"></i><a href="tel:91{{$lead->mobile}}"> {{$lead->mobile}}</a>   <a href="https://wa.me/91{{$lead->mobile}}" target="_blank" aria-label="Whatsup"><i class="bi bi-whatsapp" style="color:#14D73F"></i>{{$lead->mobile}}</a> -->
+                    <i class="bi bi-telephone-fill"></i>
+                    
+                    <a href="tel:91{{$lead->mobile}}" target="_blank"> {{$lead->mobile}}</a>   <a href="https://wa.me/91{{$lead->mobile}}" target="_blank" aria-label="Whatsup"><i class="bi bi-whatsapp" style="color:#14D73F"></i>{{$lead->mobile}}</a>
                   </div>
                  
                     <div class="enquiry-time"><i class="bi bi-clock"></i> <?php  get_time(strtotime($lead->created)); ?> ago</div>
@@ -90,9 +86,8 @@ Find Only Certified Training Institutes, Coaching Centers near you on Estivaledg
         // Favorite icon toggle functionality
         document.querySelectorAll('.favorite-icon').forEach(icon => {
             icon.addEventListener('click', () => {
- 
-                // icon.classList.toggle('fa-solid');
-                // icon.classList.toggle('fa-regular');
+                icon.classList.toggle('fa-solid');
+                icon.classList.toggle('fa-regular');
                 icon.classList.toggle('favorited');
             });
         });

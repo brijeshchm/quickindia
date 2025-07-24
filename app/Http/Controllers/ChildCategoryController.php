@@ -375,7 +375,34 @@ class ChildCategoryController extends Controller
 			if(!$request->user()->current_user_can('administrator')){
 				return response()->json(['status'=>0,'msg'=>'Unauthorised access'],200);
 			}
+ 		$delet_data = ChildCategory::find($id);	
+		if($delet_data->pc_icon!='')
+		{
+			$image = unserialize($delet_data->pc_icon);
+			$thumbnail = ''.$image['pc_icon']['src'];
+			if (file_exists($thumbnail))
+			{
+			unlink($thumbnail);
+			}  
+		} 
+		$edit_data = array('pc_icon'  =>"",);	 
+		ChildCategory::where('id',$id)->update($edit_data);
+
+		if($delet_data->child_banner!='')
+		{
+			$image = unserialize($delet_data->child_banner);
+			$thumbnail = ''.$image['child_banner']['src'];
+			if (file_exists($thumbnail))
+			{
+			unlink($thumbnail);
+			}  
+		}
+ 
+		$edit_data = array('child_banner'  =>"",);	 
+		ChildCategory::where('id',$id)->update($edit_data);		 		
+		
 			ChildCategory::destroy($id);
+			
 			return response()->json(['status'=>1,'msg'=>'Child Category deleted succesfully!!']);
 		} 		
     }

@@ -847,6 +847,38 @@ var enquiryController  = (function(){
 		
 	});
 
+ 
+	$(document).on('change','.scrapLeadcheck',function(e){
+		e.preventDefault();	
+		var val   = $(this).val();	 
+		const isChecked = $(this).is(':checked');
+		var lead_id   = $(this).attr("data-lead_id");
+
+		console.log('Checkbox is checked:', isChecked);
+        console.log('lead_id:', lead_id);
+        console.log('val:', val);
+
+		$.ajax({
+			type: "POST",
+		 	url:"/business/scrapLead",
+			data: {val: val,isChecked: isChecked,lead_id:lead_id},
+			dataType: 'json',
+			success: function(response) {				
+				if(response.status){					  
+				 $(this).checked = !isChecked
+				 
+				}else{
+					  
+				}				
+			},
+			error: function(response) {
+			 
+			}
+		});	
+		
+	});
+
+ 
 
   $(document).ready(function(){
   

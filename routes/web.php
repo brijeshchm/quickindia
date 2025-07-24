@@ -41,6 +41,7 @@ Route::get('/business/enquiry',[App\Http\Controllers\Client\BusinessController::
 Route::get('/business/new-enquiry',[App\Http\Controllers\Client\BusinessController::class,'newEnquiry']);
 Route::get('/business/myLead',[App\Http\Controllers\Client\BusinessController::class,'myLead']);
 Route::get('/business/favorite-enquiry',[App\Http\Controllers\Client\BusinessController::class,'favoriteEnquiry']);
+Route::get('/business/scrap-enquiry',[App\Http\Controllers\Client\BusinessController::class,'scrapEnquiry']);
 Route::get('/business/manage-enquiry',[App\Http\Controllers\Client\BusinessController::class,'manageEnquiry']);
 
 Route::get('/business-owners/get-Discussion',[App\Http\Controllers\Client\BusinessOwnerController::class, 'getDiscussion']);
@@ -60,6 +61,7 @@ Route::get('/business/profileLogo/profilePicDel/{id}',[App\Http\Controllers\Clie
 Route::get('/business/location-information',[App\Http\Controllers\Client\BusinessController::class, 'locationInformation']);
 Route::post('/business/saveLocationInformation',[App\Http\Controllers\Client\BusinessController::class, 'saveLocationInformation']);
 Route::post('/business/pauseLead',[App\Http\Controllers\Client\BusinessController::class, 'pauseLead']);
+Route::post('/business/scrapLead',[App\Http\Controllers\Client\BusinessController::class, 'scrapLead']);
 Route::post('/business/readLead',[App\Http\Controllers\Client\BusinessController::class, 'readLead']);
 Route::post('/business/favoritleads',[App\Http\Controllers\Client\BusinessController::class, 'favoritleads']);
 
