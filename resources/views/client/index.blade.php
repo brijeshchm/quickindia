@@ -683,7 +683,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on QuickIndia
          <div class="col-md-2">
             <div class="popular-div">
                <figure><a href="{{url(strtolower(str_replace(" ","-",$locationCity)).'/categories/entrance-exams-coaching')}}" title="UPSC & IAS" tabindex="0">
-                  <img class="" src="popular/UPSC-IAS.jpg"  alt="" ></a>
+                  <img class="" src="popular/UPSC-IAS.jpg"  alt="UPSC-IAS" ></a>
                </figure>
                <div class="grid-info ">
                   <h3><a href="{{url(strtolower(str_replace(" ","-",$locationCity)).'/categories/entrance-exams-coaching')}}"   tabindex="0"> <span>UPSC & IAS</span> </a></h3>
