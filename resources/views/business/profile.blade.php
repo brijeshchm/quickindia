@@ -25,7 +25,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
  
  
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Profile Information</button>
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Business Information</button>
                 </li>
 
                 <li class="nav-item profile_success">
@@ -87,7 +87,14 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
                 border-radius: 4px;
             }
         }
+    .help-block{  
+    color: #ff0000;
+    position: relative;
 
+    margin-top: 61px;
+    display: block;
+    margin-left: -207px;
+    }
         
               </style>
              
@@ -96,74 +103,82 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
 
 
 
-                <form class="profileSave" method="POST">
-                        <input type="hidden" name="business_id" value="{{$client->id}}">
+                <form class="profile_info" method="POST" onsubmit="return businessController.editProfileInfo(this,<?php echo (isset($client->id)? $client->id:""); ?>)">
+                <input type="hidden" name="business_id" value="{{ old('middle_name',(isset($client)) ? $client->id:"")}}">
                       
-                   <!-- #endregion -->
+                 
  
                  
                 <div class="form-group">
                     <label>Business Name:</label>
                   
-                      <input type="hidden" name="business_id" value="{{$client->id}}">
-                       <input name="business_name" type="text" class="form-control" value="<?php if($client->business_name){ echo $client->business_name; } ?>">
+                      <input type="hidden" name="business_id" value="{{ old('middle_name',(isset($client)) ? $client->id:"")}}">
+                       <input name="business_name" type="text" class="form-control" value="{{ old('business_name',(isset($client)) ? $client->business_name:"")}}">
                     <label>*Email:</label>
-                      <input name="email" type="email" class="form-control" id="Email" value="<?php if(!empty($client->email)){ echo $client->email; } ?>" placeholder="Please enter Email" readonly>
+                      <input name="email" type="email" class="form-control" id="Email" value="{{ old('email',(isset($client)) ? $client->email:"")}}" placeholder="Please enter Email" readonly>
                 </div>
                 <div class="form-group">
                     <label>Address:</label>
-                     <textarea name="address" class="form-control" id="about" style="height: 100px">{{$client->address}}</textarea>
+                     <textarea name="address" class="form-control" style="height: 100px"> {{ old('address',(isset($client)) ? $client->address:"")}}</textarea>
                     <label>Landmark:</label>
-                    <input name="landmark" type="text" class="form-control"   value="<?php if($client->landmark){ echo $client->landmark; } ?>">
+                    <input name="landmark" type="text" class="form-control"   value="{{ old('landmark',(isset($client)) ? $client->landmark:"")}}">
                 </div>
                 <div class="form-group">
+                  <label>State:</label>
+                    <?php $states = getStates();
+                    
+                     
+                    ?>
+						<select class="select2-single-state form-control state" name="state" onchange="get_city(this.value);">
+						  @if($states)
+                      @foreach($states as $state)
+                   <option value="">Select State</option>      
+
+                  <option value="{{$state['state_name']}}"  @if ($state['state_name']== old('state'))
+                        selected="selected"	
+                      @else
+                      {{ (isset($client) && $client->state == $state['state_name'] ) ? "selected":"" }} @endif>{{$state['state_name']}}</option>
+                        @endforeach
+                        @endif      
+						</select>
                     <label>City:</label>
-                    <select class="form-control dropdown-arrow dropdown-arrow-inverse city-form select2-single city" name="city">
+                    <select class="form-control dropdown-arrow dropdown-arrow-inverse city-form show_cityList" name="business_city">
 						<option value="">Select City</option>
 						@if(!empty($client->city))
 						<option value="{{$client->city}}" selected>{{$client->city}}</option>
 						@endif
 						
 						</select>
-                    <label>State:</label>
-                    <?php $states = getStates(); ?>
-						<select class="select2-single-state form-control" id="state" name="state">
-							<?php
-								$selected = '';
-								foreach($states as $state){
-									$selected = ($state==$client->state)?"selected":"";
-									echo "<option value=\"".$state."\" ".$selected.">".$state."</otpion>";
-								}
-							?>
-						</select>
+            
                     
+                </div>
+
+              <div class="form-group">
+                    <label>Area:</label>
+                    <input type="text" class="form-control" name="area" value="{{ old('area',(isset($client)) ? $client->area:"")}}" placeholder="Enter Area">
+                    <label>Pincode:</label>
+                    <input type="text" class="form-control" value="{{ old('pincode',(isset($client)) ? $client->pincode:"")}}" placeholder="Enter Pincode">
                 </div>
                 <div class="form-group">
                     <label>Country:</label>
-                   	<input type="text" class="form-control" id="country" name="country" value="{{$client->country}}">
+                   	<input type="text" class="form-control" name="country" value="{{ old('country',(isset($client)) ? $client->country:"")}}">
                     <label>year of Establishment:</label>              
-                        <input name="year_of_estb" type="text" class="form-control" value="<?php if($client->year_of_estb){ echo $client->year_of_estb; } ?>" placeholder="Please enter (YYYY)" maxlength="4">
+                    <input name="year_of_estb" type="text" class="form-control" value="{{ old('year_of_estb',(isset($client)) ? $client->year_of_estb:"")}}" placeholder="Please enter (YYYY)" maxlength="4">
                     
                 </div>
                 <div class="form-group">
                
                     <label>Business Info:</label>
                    
-                     <textarea name="business_intro" class="form-control" id="about" style="height: 100px">{{$client->business_intro}}</textarea>
+                     <textarea name="business_intro" class="form-control" id="about" style="height: 100px">{{ old('business_intro',(isset($client)) ? $client->business_intro:"")}}</textarea>
                     
                 </div>
 
-                <div class="form-group">
-              
+                <div class="form-group">              
                     <label>Certifications(Comma separated if more than 1):</label>
-                        <input name="certifications" type="text" class="form-control" value="<?php echo (empty($client->certifications))?"":implode(',',unserialize($client->certifications)); ?>">
+                        <input name="certifications" type="text" class="form-control" value="{{ old('certifications',(isset($client)) ? $client->certifications:"")}}">
                 </div>
-                <div class="form-group">
-                    <label>Area:</label>
-                    <input type="text" class="form-control" placeholder="Enter Area">
-                    <label>Pincode:</label>
-                    <input type="text" class="form-control" placeholder="Enter Pincode">
-                </div>
+            
               
                    <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Hours of Operation</label>
@@ -201,4 +216,27 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
 
   </main><!-- End #main -->
 
+<script>	
+	window.onload = function()
+	{
+		var state 	='<?php echo $client->state; ?>';
+		var city 	= '<?php echo $client->business_city; ?>';	 
+		get_city(state,city); 
+	}	 
+
+function get_city(state,city){
+	var token = $('input[name=_token]').val();
+	$.ajax({
+	type: "post",	 
+	url: "{{URl('business/cities/getajaxcities')}}",
+	data: {sid:state,cid:city},
+	headers: {'X-CSRF-TOKEN': token},		
+	cache: false,
+	success: function(data)
+	{
+		$(".show_cityList").html(data);
+	}
+	});
+}
+</script>
  @endsection

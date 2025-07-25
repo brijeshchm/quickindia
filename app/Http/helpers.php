@@ -84,6 +84,7 @@ function getCity(){
 }
 
 
+
 function get_time($time) {
  
         $start_date = date('Y-m-d H:i:s');
@@ -335,8 +336,54 @@ function getStarCodedStr($str,$type=NULL){
 // RETURN STATE/UNION TERROTERIES LIST
 // ***********************************
 function getStates(){
-	return ['-- Select State --','Andhra Pradesh','Arunachal Pradesh','Assam','Andaman and Nicobar Islands','Bihar','Chandigarh','Chhattisgarh','Dadra and Nagar Haveli','Daman and Diu','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Karnataka','Kerala','Lakshadweep','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Orissa','Pondicherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
+return array(
+  array('id' => '1','state_name' => 'Andaman and Nicobar Islands','state_country_id' => '101'),
+  array('id' => '2','state_name' => 'Andhra Pradesh','state_country_id' => '101'),
+  array('id' => '3','state_name' => 'Arunachal Pradesh','state_country_id' => '101'),
+  array('id' => '4','state_name' => 'Assam','state_country_id' => '101'),
+  array('id' => '5','state_name' => 'Bihar','state_country_id' => '101'),
+  array('id' => '6','state_name' => 'Chandigarh','state_country_id' => '101'),
+  array('id' => '7','state_name' => 'Chhattisgarh','state_country_id' => '101'),
+  array('id' => '8','state_name' => 'Dadra and Nagar Haveli','state_country_id' => '101'),
+  array('id' => '9','state_name' => 'Daman and Diu','state_country_id' => '101'),
+  array('id' => '10','state_name' => 'Delhi','state_country_id' => '101'),
+  array('id' => '11','state_name' => 'Goa','state_country_id' => '101'),
+  array('id' => '12','state_name' => 'Gujarat','state_country_id' => '101'),
+  array('id' => '13','state_name' => 'Haryana','state_country_id' => '101'),
+  array('id' => '14','state_name' => 'Himachal Pradesh','state_country_id' => '101'),
+  array('id' => '15','state_name' => 'Jammu and Kashmir','state_country_id' => '101'),
+  array('id' => '16','state_name' => 'Jharkhand','state_country_id' => '101'),
+  array('id' => '17','state_name' => 'Karnataka','state_country_id' => '101'),
+  array('id' => '18','state_name' => 'Kenmore','state_country_id' => '101'),
+  array('id' => '19','state_name' => 'Kerala','state_country_id' => '101'),
+  array('id' => '20','state_name' => 'Lakshadweep','state_country_id' => '101'),
+  array('id' => '21','state_name' => 'Madhya Pradesh','state_country_id' => '101'),
+  array('id' => '22','state_name' => 'Maharashtra','state_country_id' => '101'),
+  array('id' => '23','state_name' => 'Manipur','state_country_id' => '101'),
+  array('id' => '24','state_name' => 'Meghalaya','state_country_id' => '101'),
+  array('id' => '25','state_name' => 'Mizoram','state_country_id' => '101'),
+  array('id' => '26','state_name' => 'Nagaland','state_country_id' => '101'),
+  array('id' => '27','state_name' => 'Narora','state_country_id' => '101'),
+  array('id' => '28','state_name' => 'Natwar','state_country_id' => '101'),
+  array('id' => '29','state_name' => 'Odisha','state_country_id' => '101'),
+  array('id' => '30','state_name' => 'Paschim Medinipur','state_country_id' => '101'),
+  array('id' => '31','state_name' => 'Pondicherry','state_country_id' => '101'),
+  array('id' => '32','state_name' => 'Punjab','state_country_id' => '101'),
+  array('id' => '33','state_name' => 'Rajasthan','state_country_id' => '101'),
+  array('id' => '34','state_name' => 'Sikkim','state_country_id' => '101'),
+  array('id' => '35','state_name' => 'Tamil Nadu','state_country_id' => '101'),
+  array('id' => '36','state_name' => 'Telangana','state_country_id' => '101'),
+  array('id' => '37','state_name' => 'Tripura','state_country_id' => '101'),
+  array('id' => '38','state_name' => 'Uttar Pradesh','state_country_id' => '101'),
+  array('id' => '39','state_name' => 'Uttaranchal','state_country_id' => '101'),
+  array('id' => '40','state_name' => 'Vaishali','state_country_id' => '101'),
+  array('id' => '41','state_name' => 'West Bengal','state_country_id' => '101')
+);
+ 
 }
+
+
+
 
 // RETURN CLIENTS TYPE
 // *******************

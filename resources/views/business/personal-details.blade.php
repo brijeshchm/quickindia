@@ -58,6 +58,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
             flex-wrap: wrap;
             align-items: center;
             gap: 15px;
+            position: relative;
         }
 
         .form-group label {
@@ -88,77 +89,128 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
             }
         }
 
-        
+    .help-block{  
+    color: #ff0000;
+    position: relative;
+
+    margin-top: 61px;
+    display: block;
+    margin-left: -207px;
+    }
               </style>
 
                 <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
                  
-                      <form class="profileSave" method="POST">
-                        <input type="hidden" name="business_id" value="{{$client->id}}">
+                <form class="personal_details" method="POST" onsubmit="return profileController.editPersonaleDetailsSave(this,<?php echo (isset($edit_data->id)? $edit_data->id:""); ?>)">
+                        <input type="hidden" name="business_id" value="{{$edit_data->id}}">
                       
-                   <!-- #endregion -->
+               
  
                  
                 <div class="form-group">
-                    <label>*Title:</label>
-                    <select class="form-control">
-                        <option>Ms</option>
-                        <option>Mr</option>
-                        <option>Mrs</option>
+                    <label>Title*:</label>
+                    <select class="form-control" name="sirName">
+                      <option value=""> Select Sir Name</option>
+                      <option value="Ms" @if ('Ms'== old('sirName'))
+                      selected="selected"	
+                      @else
+                      {{ (isset($edit_data) && $edit_data->sirName == 'Ms' ) ? "selected":"" }} @endif >Ms</option>
+                      <option value="Mr" @if ('Mr'== old('sirName'))
+                      selected="selected"	
+                      @else
+                      {{ (isset($edit_data) && $edit_data->sirName == 'Mr' ) ? "selected":"" }} @endif>Mr</option>
+                      <option value="Mrs" @if ('Mrs'== old('sirName'))
+                      selected="selected"	
+                      @else
+                      {{ (isset($edit_data) && $edit_data->sirName == 'Mrs' ) ? "selected":"" }} @endif>Mrs</option>
                     </select>
-                    <label>*First Name:</label>
-                    <input type="text" class="form-control" value="aryan">
+                    <label>First Name*:</label>
+                    <input type="text" class="form-control" name="first_name" value="{{ old('first_name',(isset($edit_data)) ? $edit_data->first_name:"")}}" placeholder="Enter First Name">
                 </div>
                 <div class="form-group">
                     <label>Middle Name:</label>
-                    <input type="text" class="form-control" placeholder="Enter Middle Name">
+                    <input type="text" class="form-control" value="{{ old('middle_name',(isset($edit_data)) ? $edit_data->middle_name:"")}}" name="middle_name" placeholder="Enter Middle Name">
                     <label>Last Name:</label>
-                    <input type="text" class="form-control" placeholder="Enter Last Name">
+                    <input type="text" class="form-control" value="{{ old('last_name',(isset($edit_data)) ? $edit_data->last_name:"")}}" name="last_name" placeholder="Enter Last Name">
                 </div>
                 <div class="form-group">
-                    <label>*DOB:</label>
-                    <input type="text" class="form-control" placeholder="Enter DOB">
-                    <label>Email ID:</label>
-                    <input type="email" class="form-control" placeholder="Enter Email">
+                    <label>DOB*:</label>
+                    <input type="text" class="form-control dob" value="{{ old('dob',(isset($edit_data)) ? $edit_data->dob:"")}}" name="dob" placeholder="Enter DOB">
+                    <label>Email ID*:</label>
+                    <input type="email" class="form-control" value="{{ old('email',(isset($edit_data)) ? $edit_data->email:"")}}" name="email" placeholder="Enter Email" readonly>
                     
                 </div>
                 <div class="form-group">
-                    <label>*Marital Status:</label>
-                    <select class="form-control">
-                        <option>Single</option>
-                        <option>Married</option>
+                    <label>Marital Status*:</label>
+                    <select class="form-control" name="marital">
+              <option value="Single" @if ('Single'== old('marital'))
+								selected="selected"	
+							@else
+							{{ (isset($edit_data) && $edit_data->marital == 'Single' ) ? "selected":"" }} @endif>Single</option>
+            <option value="Married" @if ('Married'== old('marital'))
+								selected="selected"	
+							@else
+							{{ (isset($edit_data) && $edit_data->marital == 'Married' ) ? "selected":"" }} @endif>Married</option>
                     </select>
-                    <label>Mobile:</label>
+                    <label>Mobile*:</label>
                    
-                    <input type="text" class="form-control" value="9318345497">
+                    <input type="text" class="form-control" name="mobile" value="{{ old('mobile',(isset($edit_data)) ? $edit_data->mobile:"")}}" placeholder="Enter Mobile" readonly>
                     
                 </div>
                 <div class="form-group">
-                    <label>Mobile 2:</label>
+                    <label> Second Mobile:</label>
  
-                    <input type="text" class="form-control" placeholder="">
-                   
+                    <input type="text" class="form-control" name="sec_mobile" value="{{ old('sec_mobile',(isset($edit_data)) ? $edit_data->sec_mobile:"")}}" placeholder="Enter Sec Mobile">                   
                     <label>City:</label>
-                    <input type="text" class="form-control" placeholder="Enter City">
+               
+                  <select class="form-control" name="city">
+                    <option value="">Select City</option>
+                  @if($citys)
+                  @foreach($citys as $city)
+                  <option value="{{$city->city}}"  @if ($city->city== old('city'))
+                  selected="selected"	
+                  @else
+                  {{ (isset($edit_data) && $edit_data->city == $city->city ) ? "selected":"" }} @endif>{{$city->city}}</option>
+                  @endforeach
+                  @endif
+                  </select>
+
                 </div>
                 <div class="form-group">
                     <label>Area:</label>
-                    <input type="text" class="form-control" placeholder="Enter Area">
+                    <input type="text" class="form-control" name="area" value="{{ old('area',(isset($edit_data)) ? $edit_data->area:"")}}"  placeholder="Enter Area">
                     <label>Pincode:</label>
-                    <input type="text" class="form-control" placeholder="Enter Pincode">
+                    <input type="text" class="form-control" name="pincode" value="{{ old('pincode',(isset($edit_data)) ? $edit_data->pincode:"")}}"  maxlength="6" placeholder="Enter Pincode">
                 </div>
                 <div class="form-group">
                     <label>Occupation:</label>
-                    <select class="form-control">
-                        <option>Employed</option>
-                        <option>Unemployed</option>
+                    <select class="form-control" name="occupation">
+                      @if($occupations)
+                      @foreach($occupations as $occupation)
+                        <option value="{{$occupation->name}}"  @if ($occupation->name== old('occupation'))
+                        selected="selected"	
+                      @else
+                      {{ (isset($edit_data) && $edit_data->occupation == $occupation->name ) ? "selected":"" }} @endif>{{$occupation->name}}</option>
+                        @endforeach
+                        @endif
+                         
+                      
                     </select>
                     <label>Gender:</label>
-                    <select class="form-control">
+                    <select class="form-control" name="gender">
                         <option>Select Gender</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
+                        <option value="Male" @if ('Male'== old('gender'))
+								selected="selected"	
+							@else
+							{{ (isset($edit_data) && $edit_data->gender == 'Male' ) ? "selected":"" }} @endif>Male</option>
+                        <option value="Female" @if ('Female'== old('gender'))
+								selected="selected"	
+							@else
+							{{ (isset($edit_data) && $edit_data->gender == 'Female' ) ? "selected":"" }} @endif>Female</option>
+                        <option value="Other" @if ('Other'== old('gender'))
+								selected="selected"	
+							@else
+							{{ (isset($edit_data) && $edit_data->gender == 'Other' ) ? "selected":"" }} @endif>Other</option>
                     </select>
                 </div>
             <div class="text-center"> 
@@ -185,5 +237,7 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
     </section>
 
   </main><!-- End #main -->
-
+<script>
+ //$('.dob').datepicker({dateFormat:"yy-mm-dd"});
+</script>
  @endsection

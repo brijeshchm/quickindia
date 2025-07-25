@@ -26,6 +26,9 @@ use App\Models\Keyword;
 use App\Models\LeadFollowUp;
 use App\Models\Status;
 use App\Models\AssignedLead;
+use App\Models\Occupation;
+use App\Models\Citieslists;
+use App\Models\AssignedZone;
 class BusinessController extends Controller
 {
 	protected $danger_msg = '';
@@ -244,6 +247,72 @@ class BusinessController extends Controller
 		}
 	 }
 	
+	/**
+	 * Return Paginated Assigned Keywords
+	 *
+	 * @param $request - Request class instance
+	 * @param $id - ClientID
+	 * @return JSON object containing payload
+	 */
+	 public function getAssignedZonesPagination(Request $request)
+	 {
+		if($request->ajax()){
+			$clientID = auth()->guard('clients')->user()->id;
+			$leads = DB::table('assigned_zones')
+				->join('zones','assigned_zones.zone_id','=','zones.id')
+				->join('citylists','assigned_zones.city_id','=','citylists.id')			 
+				->select('assigned_zones.*','citylists.city','zones.zone','assigned_zones.id as assign_id')
+				->orderBy('assigned_zones.id','desc')
+				->where('assigned_zones.client_id',$clientID)
+				->paginate($request->input('length'));
+					   
+			$returnLeads = $data = [];
+			$returnLeads['draw'] = $request->input('draw');
+			$returnLeads['recordsTotal'] = $leads->total();
+			$returnLeads['recordsFiltered'] = $leads->total();
+	  
+			foreach($leads as $lead){
+			    
+			    $action ='<a href="javascript:businessController.assignZoneDelete('.$lead->id.')" title="Delete" class="btn btn-danger"><i class="bi bi-trash" aria-hidden="true"></i></a>';	
+			
+				if(!empty($lead->zone)){
+					$zonename= $lead->zone;
+				}else{
+					$zonename="";
+					
+				}
+				$data[] = [
+					$lead->city,	
+					$zonename,									 
+					$action,
+		 
+				 
+				];
+			}
+			$returnLeads['data'] = $data;
+			return response()->json($returnLeads);
+			 
+		}
+	 }
+	 /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function assignZoneDelete(Request $request, $id)
+    { 
+		$assignedZone = AssignedZone::findOrFail($id);	
+		if($assignedZone->delete()){
+		$status=1;							 
+		$msg="Assigned Zone Successfully!";	
+		}else{
+		$status=0;							 
+		$msg="Assigned Zone could not be Deleted!";	
+		}
+		return response()->json(['status'=>$status,'msg'=>$msg],200); 
+    }
+	
 	
 	 /**
      * Get paginated leads.
@@ -292,40 +361,233 @@ class BusinessController extends Controller
 	public function personalDetails(Request $request)
     { 
 		$clientID = auth()->guard('clients')->user()->id;	 
-        $client = Client::find($clientID);
-        return view('business.personal-details',['client'=>$client]);
+        $edit_data = Client::find($clientID);
+		$occupations = Occupation::where('status','1')->get();
+		 $citys = Citieslists::get(); 
+        
+        return view('business.personal-details',['edit_data'=>$edit_data,'occupations'=>$occupations,'citys'=>$citys]);
     }
     
-    public function saveProfile(Request $request)
-    {        
-        if($request->has('saveProfile-form')){
+    public function savePersonalDetails(Request $request,$id)
+    {
+        if($request->ajax()){
 			
-			$client = Client::find($request->input('business_id'));
-			$id = $request->input('business_id');
-			$client->display_hofo = $request->input('display_hofo');
-			$client->business_intro = $request->input('business_intro');
-			$client->time = (null!==$request->input('time'))?serialize($request->input('time')):"";
-		 
-			$client->year_of_estb = $request->input('year_of_estb');
-			$client->certifications = (!empty($request->input('certifications')))?serialize(explode(',',$request->input('certifications'))):"";
-			
-			 
-			 
-		 
-			if($client->save()){
-			 
-				$client = Client::find($id);	
-				$resulsu = "Profile updated successfully!";
-				return response()->json(['status'=>1,'result'=>$resulsu]);
+			$validator = Validator::make($request->all(),[	
+
+			'first_name' 	=> 'required|max:255',	
+			'dob' => 'required',
+			'email' => 'required',
+			'marital' => 'required',		 
+			'mobile' => 'required',		 
+			'city' => 'required',		 
+			'sirName' => 'required',		 
+
+			]);
+
+
+			if($validator->fails()){
+			$errorsBag = $validator->getMessageBag()->toArray();
+			return response()->json(['status'=>1,'errors'=>$errorsBag],400);
 			}	
-			
-			else{
-				return response()->json(['status'=>0,'result'=>'Profile not successfully update']);
-			}			
+
+
+			$client = Client::find($id);
+		 
+			$client->sirName = $request->input('sirName');
+			$client->first_name = ucfirst($request->input('first_name'));
+			$client->middle_name = $request->input('middle_name');
+			$client->last_name = $request->input('last_name');
+			$client->dob = date('Y-m-d',strtotime($request->input('dob')));
+			$client->email = $request->input('email'); 
+			$client->marital = $request->input('marital'); 
+			$client->mobile = $request->input('mobile'); 
+			$client->sec_mobile = $request->input('sec_mobile'); 
+			$client->city = $request->input('city'); 
+			$client->area = $request->input('area'); 
+			$client->pincode = $request->input('pincode'); 
+			$client->occupation = $request->input('occupation'); 
+			$client->gender = $request->input('gender'); 	 
+			if($client->save()){
+			$status=1;							 
+			$msg="Personal Details updated successfully !";					
+			}else{
+			$status=0;							 
+			$msg="Personal Details could not be successfully, Please try again !";	
+			}		
+			return response()->json(['status'=>$status,'msg'=>$msg],200); 			
 		}
         
     }
     
+    
+    public function saveProfileInfo(Request $request,$id)
+    {
+		 
+        if($request->ajax()){
+			
+			$validator = Validator::make($request->all(),[	
+
+			'business_name' 	=> 'required|max:255',
+			'email' => 'required',
+			'landmark' => 'required',
+			'address' => 'required',
+			'business_city' => 'required',
+			'state' => 'required',
+			'country' => 'required',
+			 
+
+			]);
+
+
+			if($validator->fails()){
+			$errorsBag = $validator->getMessageBag()->toArray();
+			return response()->json(['status'=>1,'errors'=>$errorsBag],400);
+			}	
+
+
+			$client = Client::find($id);
+		 
+					
+			$client->business_name = $request->input('business_name');
+			$client->email = $request->input('email');
+			$client->address = $request->input('address');
+			$client->landmark = $request->input('landmark');
+			$client->business_city = $request->input('business_city');
+			$client->state = $request->input('state');
+			$client->country = $request->input('country');
+			$client->area = $request->input('area');
+			$client->year_of_estb = $request->input('year_of_estb');
+			$client->business_intro = $request->input('business_intro');
+			$client->certifications = $request->input('certifications');
+			$client->display_hofo = $request->input('display_hofo');
+			if($client->save()){
+			$status=1;
+			$msg="Personal Details updated successfully !";
+			}else{
+			$status=0;
+			$msg="Personal Details could not be successfully, Please try again !";	
+			}		
+			return response()->json(['status'=>$status,'msg'=>$msg],200); 			
+		}
+        
+    }
+    
+    
+    public function saveBusinessLocation(Request $request,$id)
+    {
+		 
+	 
+        if($request->ajax()){
+	 
+		if($request->input('zone_id') == "Other"){
+
+			 
+			$validator = Validator::make($request->all(),[	
+			'city_id' 	=> 'required|max:25',
+			//'other' 	=> 'required|regex:/^[\pL\s\-]+$/u|min:3|max:32',	
+			'other' 	=> 'required|min:3|max:32|regex:/^(?!.*(.)\1{3,}).+$/',	
+			]);
+
+		 
+		}else{
+			$validator = Validator::make($request->all(),[	
+			'city_id' 	=> 'required|max:255',
+			'zone_id' => 'required|max:255',
+		 
+			]);
+		}
+
+			if($validator->fails()){
+			$errorsBag = $validator->getMessageBag()->toArray();
+			return response()->json(['status'=>1,'errors'=>$errorsBag],400);
+			}	
+
+ 
+			$assignedZone = New AssignedZone;				
+			$assignedZone->city_id = $request->input('city_id');
+			if($request->input('zone_id') == "Other"){
+			$checkZone = Zone::where('zone',$request->input('other'))->first();
+				if(empty($checkZone)){
+					$zone = New Zone;
+					$zone->city_id = $request->input('city_id');
+					$zone->zone = ucfirst($request->input('other'));
+					$zone->save();
+					$zone_id = $zone->id;
+				}else{
+					$zone_id = $checkZone->id;
+				}
+
+			}else{
+				$zone_id = $request->input('zone_id');
+			}
+			$assignedZone->zone_id = $zone_id;
+			$assignedZone->client_id = $request->input('client_id'); 
+		 
+			$checkAssignedZone = AssignedZone::where('client_id',$request->input('client_id'))->where('zone_id',$zone_id)->where('city_id',$request->input('city_id'))->first();
+ 
+			if(empty($checkAssignedZone)){
+				if($assignedZone->save()){
+				
+				$status=1;
+				$msg="Business Location updated successfully !";
+				}else{
+				$status=0;
+				$msg="Business Location could not be successfully, Please try again !";	
+				}	
+			}else{
+				$status=0;
+				$msg="Already exists <strong>".$request->input('other')."</strong> Please add right zone !";
+			}	
+			return response()->json(['status'=>$status,'msg'=>$msg],200); 			
+		}
+        
+    }
+    
+
+	 public function getAjaxCities(Request $request)
+    {
+         
+		$sid = $request->input('sid'); 
+		$cid = $request->input('cid'); 	
+		$citys= DB::table('citylists')->where('state',$sid)->get();
+//		echo "<pre>";print_r($citys);die;
+		if($citys){ 
+		echo '<option value="">Select City</option>';
+		foreach($citys as $city){ 
+		$selected = ($cid==$city->city)?"selected":'';
+
+		echo'<option value="'.$city->city.'" '.$selected.' >'.$city->city.'</option>';
+
+		}
+		} else { 
+		echo'<option value="">No record found</option>';
+		}
+		
+	
+    }
+
+	 public function getAjaxZone(Request $request)
+    {        
+	
+		$cid = $request->input('city'); 	
+		$zid = $request->input(key: 'zone'); 
+		$zones= DB::table('zones')->where('city_id',$cid)->get();
+//		echo "<pre>";print_r($citys);die;
+		if($zones){ 
+		echo '<option value="">Select zone</option>';
+		foreach($zones as $zone){ 
+		$selected = ($zid==$zone->zone)?"selected":'';
+
+		echo'<option value="'.$zone->id.'" '.$selected.' >'.$zone->zone.'</option>';
+
+		}
+		echo '<option value="Other">Other</option>';
+		} else { 
+		echo'<option value="">No record found</option>';
+		}
+		
+	
+    }
 	public function help(Request $request)
     { 
         	$clientID = auth()->guard('clients')->user()->id;
@@ -711,7 +973,8 @@ class BusinessController extends Controller
 		if($request->has('search')){
 			$search = $request->input('search');
 		}
-        return view('business.business-location',['search'=>$search,'client'=>$client]);
+		$citylist = Citieslists::get();
+        return view('business.business-location',['search'=>$search,'client'=>$client,'citylist'=>$citylist]);
     }
     
     

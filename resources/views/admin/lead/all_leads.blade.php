@@ -21,7 +21,7 @@
 					@endif					
                     <div class="panel panel-info">
                         <div class="panel-body">
-							<div class="nc-form row form-group">
+							<div class="nc-form form-back row form-group">
 								<form method="GET" action="/developer/lead">
 									{{ csrf_field() }}
 									<div class="form-group">

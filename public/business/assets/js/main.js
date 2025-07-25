@@ -384,7 +384,7 @@ jQuery(document).on('click', '#razor-pay-now', function (e) {
 	});
    
    	$(document).on('submit','.profileSave',function(e){
-   	    
+   	  
 		e.preventDefault();	
 		$.ajax({
 			url: '/business/saveProfile',
@@ -396,7 +396,7 @@ jQuery(document).on('click', '#razor-pay-now', function (e) {
 				if(response.status){					 
 				// $('.profile_success').text(response.result);
                 $("#messaged").modal("show");
-                $('.imgclass').html('<img src="/public/images/success.png" style="width:100%;text-align: center;margin: auto;display: block;">');	
+                $('.imgclass').html('<img src="/images/success.png" style="width:100%;text-align: center;margin: auto;display: block;">');	
                 $('.successhtml').html("<p class='text-center' style='font-weight: 600;'>" +response.result+"</p>");
                // $('#messagemodel').modal({backdrop:"static",keyboard:false});
                 
@@ -435,13 +435,11 @@ jQuery(document).on('click', '#razor-pay-now', function (e) {
    var businessController = (function(){
 		return {
 			checked_Ids:[],	
-			editProfileSave:function(THIS,id){
-			    alert('inner');
-			  var $this = $(THIS);
+			editProfileInfo:function(THIS,id){			     
+			var $this = $(THIS);
 			var form = new FormData(THIS);	
-		 
 				$.ajax({
-					url:"/business/saveProfile/"+id,
+					url:"/business/saveProfileInfo/"+id,
 					type:"POST",					   
 					dataType:"json",	
 					data:form,
@@ -449,25 +447,183 @@ jQuery(document).on('click', '#razor-pay-now', function (e) {
 					contentType: false, 
                     processData: false,                      
 					success:function(data){
-					    mainSpinner.stop();			
+					  	
 						if(data.status){
                             $("#messaged").modal("show");
-                            $('.imgclass').html('<img src="/public/images/success.png" style="width:100%;text-align: center;margin: auto;display: block;">');	
-                            $('.successhtml').html("<p class='text-center' style='font-weight: 600;'>" +response.result+"</p>");
+                            $('.imgclass').html('<img src="/images/success.png" style="width:100%;text-align: center;margin: auto;display: block;">');	
+                            $('.successhtml').html("<p class='text-center' style='font-weight: 600;'>" +data.msg+"</p>");
 						}else{
                                 $("#messaged").modal("show");
-                                $('.imgclass').html('<img src="/public/images/failed.png" style="width: 35%;text-align: center;margin: auto;display: block;">');	
-                                $('.failedhtml').html("<p class='text-center' style='font-weight: 600;'>" +response.result+"</p>");	 	
+                                $('.imgclass').html('<img src="/images/failed.png" style="width: 35%;text-align: center;margin: auto;display: block;">');	
+                                $('.failedhtml').html("<p class='text-center' style='font-weight: 600;color:red'>" +data.msg+"</p>");	 	
 						}
 					},
 					error:function(jqXHR, textStatus, errorThrown){
-					   		
+							var response = JSON.parse(jqXHR.responseText);	
+							if(response.status){						 
+							var errors = response.errors;						 
+							$('.profile_info').find('.form-group').removeClass('has-error');
+							$('.profile_info').find('.help-block').remove();
+							for (var key in errors) {
+							if(errors.hasOwnProperty(key)){	
+
+							var el = $('.profile_info').find('*[name="'+key+'"]');
+							$('<span class="help-block"><strong>'+errors[key][0]+'</strong></span>').insertAfter(el);
+							el.closest('.form-group').addClass('has-error');
+							}
+							}				 
+							}else{
+							alert('Something went wrong');
+							}
+			 
+					}
+				}); 
+				 return false;	
+			},
+			saveBusinessLocation:function(THIS,id){			     
+			var $this = $(THIS);
+			var form = new FormData(THIS);	
+				$.ajax({
+					url:"/business/saveBusinessLocation/"+id,
+					type:"POST",					   
+					dataType:"json",	
+					data:form,
+					cache: false,
+					contentType: false, 
+                    processData: false,                      
+					success:function(data){
+					  	
+						if(data.status){
+                           $("#messaged").modal("show");                        							 
+						$('#messaged .modal-title').text("Assign Zone Delete");	
+						$('#messaged .modal-body').html("<div class='alert alert-success'>"+data.msg+"</div>");			
+						$('#messaged').modal({keyboard:false,backdrop:'static'});
+						$('#messaged').css({'width':'100%'});					
+						dataTableAssignedZones.ajax.reload( null, false );  
+						setInterval(function() {
+						$("#messaged").modal("hide");
+						}, 1000);	 
+							 
+						}else{
+							$("#messaged").modal("show");                        							 
+							$('#messaged .modal-title').text("Assign Zone Delete");	
+							$('#messaged .modal-body').html("<div class='alert alert-danger'>"+data.msg+"</div>");			
+							$('#messaged').modal({keyboard:false,backdrop:'static'});
+							$('#messaged').css({'width':'100%'});
+								
+						}
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+							var response = JSON.parse(jqXHR.responseText);	
+							if(response.status){						 
+							var errors = response.errors;						 
+							$('.buss_location').find('.form-group').removeClass('has-error');
+							$('.buss_location').find('.help-block').remove();
+							for (var key in errors) {
+							if(errors.hasOwnProperty(key)){	
+
+							var el = $('.buss_location').find('*[name="'+key+'"]');
+							$('<span class="help-block"><strong>'+errors[key][0]+'</strong></span>').insertAfter(el);
+							el.closest('.form-group').addClass('has-error');
+							}
+							}				 
+							}else{
+							alert('Something went wrong');
+							}
+			 
+					}
+				}); 
+				 return false;	
+			},
+
+
+			assignZoneDelete:function(id){
+		 
+			 	if( confirm("Are you sure you want to delete?") ) {	
+				  
+				$.ajax({
+					url:"/business/assignZone/delete/"+id,
+					type:"GET",				 
+					success:function(response){	
+					 
+					if(response.status){
+						$("#messaged").modal("show");                        							 
+						$('#messaged .modal-title').text("Assign Zone Delete");	
+						$('#messaged .modal-body').html("<div class='alert alert-success'>"+response.msg+"</div>");			
+						$('#messaged').modal({keyboard:false,backdrop:'static'});
+						$('#messaged').css({'width':'100%'});					
+						dataTableAssignedZones.ajax.reload( null, false );  
+						setInterval(function() {
+						$("#messaged").modal("hide");
+						}, 1000);
+					}else{
+						$("#messaged").modal("show");                        							 
+						$('#messaged .modal-title').text("Assign Zone Delete");	
+						$('#messaged .modal-body').html("<div class='alert alert-danger'>"+response.msg+"</div>");			
+						$('#messaged').modal({keyboard:false,backdrop:'static'});
+						$('#messaged').css({'width':'100%'});	
+					}						
+					},
+					error:function(response){
+					    ;			
+						 alert('some error');
+					}
+				});
+				}
+			},
+		 
+			};
+})();		
+
+ var profileController = (function(){
+		return {
+			checked_Ids:[],	
+			editPersonaleDetailsSave:function(THIS,id){
+			  
+			var $this = $(THIS);
+			var form = new FormData(THIS);			 
+				$.ajax({
+					url:"/business/savePersonalDetails/"+id,
+					type:"POST",					   
+					dataType:"json",	
+					data:form,
+					cache: false,
+					contentType: false, 
+                    processData: false,                      
+					success:function(data){
+					    	
+						if(data.status){
+                            $("#messaged").modal("show");
+                            $('.imgclass').html('<img src="/images/success.png" style="width:50%;text-align: center;margin: auto;display: block;">');	
+                            $('.successhtml').html("<p class='text-center' style='font-weight: 600;'>" +data.msg+"</p>");
+						}else{
+                                $("#messaged").modal("show");
+                                $('.imgclass').html('<img src="/images/failed.png" style="width: 35%;text-align: center;margin: auto;display: block;">');	
+                                $('.failedhtml').html("<p class='text-center' style='font-weight: 600;'>" +data.msg+"</p>");	 	
+						}
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+					   // ;			
 						var response = JSON.parse(jqXHR.responseText);
 						if(response.status){ 
-							showValidationErrors($this,response.errors);						 
+						
+                            var errors = response.errors;						 
+                            $('.personal_details').find('.form-group').removeClass('has-error');
+                            $('.personal_details').find('.help-block').remove();
+                            for (var key in errors) {
+                            if(errors.hasOwnProperty(key)){	
+                            
+                            var el = $('.personal_details').find('*[name="'+key+'"]');
+                            $('<span class="help-block"><strong>'+errors[key][0]+'</strong></span>').insertAfter(el);
+                            el.closest('.form-group').addClass('has-error');
+                            }
+                            }
+						
+							//showValidationErrors($this,response.errors);						 
 						}else{
 							alert('Something went wrong');
-						}		 
+						}
+						 
 					}
 				}); 
 				 return false;	
@@ -475,7 +631,6 @@ jQuery(document).on('click', '#razor-pay-now', function (e) {
 		 
 			};
 })();		
-
 
 
 var enquiryController  = (function(){
@@ -658,6 +813,23 @@ var enquiryController  = (function(){
 		"searching":false,
 		"ajax":{
 			url:"/business/get-paginated-assigned-keywords",
+			data:function(d){
+				d.page = (d.start/d.length)+1;
+				d.columns = null;
+				d.order = null;
+			}
+		}
+	}).api();
+	
+	var dataTableAssignedZones = $('#datatable-assigned-zones').dataTable({
+		"fixedHeader": true,
+		"processing":true,
+		"serverSide":true,
+		"paging":true,
+		"responsive":true,
+		"searching":false,
+		"ajax":{
+			url:"/business/get-assigned-zones",
 			data:function(d){
 				d.page = (d.start/d.length)+1;
 				d.columns = null;
@@ -883,7 +1055,8 @@ var enquiryController  = (function(){
   $(document).ready(function(){
   
   
-   $('.leaddf').daterangepicker();
+   $('.leaddf').datepicker();
+   $('.dob').datepicker();
 
 });
   

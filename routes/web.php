@@ -53,7 +53,9 @@ Route::post('/business-owners/discussion',[App\Http\Controllers\Client\BusinessO
 
 Route::get('/business/personal-details',[App\Http\Controllers\Client\BusinessController::class, 'personalDetails']);
 Route::get('/business/profileInfo',[App\Http\Controllers\Client\BusinessController::class, 'profileInfo']);
-Route::post('/business/saveProfile',[App\Http\Controllers\Client\BusinessController::class, 'saveProfile']);
+Route::post('/business/saveProfileInfo/{id}',[App\Http\Controllers\Client\BusinessController::class, 'saveProfileInfo']);
+Route::post('/business/saveBusinessLocation/{id}',[App\Http\Controllers\Client\BusinessController::class, 'saveBusinessLocation']);
+Route::post('/business/savePersonalDetails/{id}',[App\Http\Controllers\Client\BusinessController::class, 'savePersonalDetails']);
 Route::get('/business/profile-logo',[App\Http\Controllers\Client\BusinessController::class, 'profileLogo']);
 Route::post('/business/saveProfileLogo',[App\Http\Controllers\Client\BusinessController::class, 'saveProfileLogo']);
 Route::get('/business/profileLogo/logoDel/{id}',[App\Http\Controllers\Client\BusinessController::class, 'logoDel']);
@@ -64,6 +66,10 @@ Route::post('/business/pauseLead',[App\Http\Controllers\Client\BusinessControlle
 Route::post('/business/scrapLead',[App\Http\Controllers\Client\BusinessController::class, 'scrapLead']);
 Route::post('/business/readLead',[App\Http\Controllers\Client\BusinessController::class, 'readLead']);
 Route::post('/business/favoritleads',[App\Http\Controllers\Client\BusinessController::class, 'favoritleads']);
+Route::post('/business/cities/getajaxcities',[App\Http\Controllers\Client\BusinessController::class, 'getAjaxCities']);
+Route::post('/business/zone/getAjaxZone',[App\Http\Controllers\Client\BusinessController::class, 'getAjaxZone']);
+Route::get('/business/get-assigned-zones',[App\Http\Controllers\Client\BusinessController::class, 'getAssignedZonesPagination']);
+Route::get('/business/assignZone/delete/{id}',[App\Http\Controllers\Client\BusinessController::class, 'assignZoneDelete']);
 
 Route::get('/business/gallery-pictures',[App\Http\Controllers\Client\BusinessController::class, 'uploadPictures']);
 Route::get('/business/package',[App\Http\Controllers\Client\BusinessController::class, 'package']);

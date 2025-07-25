@@ -22,7 +22,7 @@
                     <div class="panel panel-info">
                         <div class="panel-body">
 						@if(Auth::user()->current_user_can('administrator') || Auth::user()->current_user_can('add_city') )
-							<div class="nc-form row form-group{{ $errors->has('city') ? ' has-error' : '' }}">
+							<div class="nc-form form-back row form-group{{ $errors->has('city') ? ' has-error' : '' }}">
 								<form method="POST" action="/developer/cities">
 									{{ csrf_field() }}
 									<div class="col-lg-3">
