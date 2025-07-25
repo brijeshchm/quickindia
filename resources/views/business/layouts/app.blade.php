@@ -22,7 +22,7 @@
     	<link href="{{asset('admin/vendor/datepicker/jquery-ui.css')}}" rel="stylesheet">
   
   <link href="{{asset('business/assets/css/style.css')}}" rel="stylesheet">  
-    <link href="{{asset('business/assets/css/daterangepicker.css')}}" rel="stylesheet">  
+    <!-- <link href="{{asset('business/assets/css/daterangepicker.css')}}" rel="stylesheet">   -->
    <link href="{{asset('/admin/vendor/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
 <!-- DataTables Responsive CSS -->
 <link href="{{asset('/admin/vendor/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
@@ -406,7 +406,7 @@
  <div id="messaged" class="modal fade" role="dialog" data-backdrop="static"><div class="modal-dialog"><div class="modal-content">
     <h5 class="modal-title">Quick India Sevice</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    <div class="modal-body" style="padding:0;">
+    <div class="modal-body" style="padding:10px;padding-top:5px">
         <div class="imgclass"></div>
     <div class="successhtml"></div><div class="failedhtml"></div><div style="text-align:center;"></div></div></div></div>
   
@@ -417,7 +417,8 @@
   
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    
-    
+ 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="{{asset('admin/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('/admin/vendor/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
 <script src="{{asset('/admin/vendor/datatables-responsive/dataTables.responsive.js')}}"></script>
@@ -426,7 +427,7 @@
    
  
        <script src="{{asset('/business/assets/js/moment.min.js')}}"></script>
-    <script src="{{asset('/business/assets/js/daterangepicker.js')}}"></script>
+    <!-- <script src="{{asset('/business/assets/js/daterangepicker.js')}}"></script> -->
     <script>
     $(".select2-single").select2({
         theme: "bootstrap",
@@ -434,7 +435,7 @@
         maximumSelectionSize: 6,
         containerCssClass: ":all:",
         ajax: {
-            url: "/developer/cities/getajaxcities",
+            url: "/business/cities/getajaxcities",
             dataType: 'json',
             delay: 250,
             data: function(params) {
@@ -458,6 +459,12 @@
     $(".select2-single-state").select2({
         theme: "bootstrap",
         placeholder: "Select State",
+        maximumSelectionSize: 6,
+        containerCssClass: ":all:"
+    });
+    $(".select2-city").select2({
+        theme: "bootstrap",
+        placeholder: "Select City",
         maximumSelectionSize: 6,
         containerCssClass: ":all:"
     });

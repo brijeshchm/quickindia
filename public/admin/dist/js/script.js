@@ -142,6 +142,33 @@ var dataTableRolePermission = $('#datatable-role-permission')
 		}
 	}
 }).api();
+
+var dataTableOccupation = $('#datatable-occupation')
+.dataTable({
+	"fixedHeader": true,
+	"processing":true,
+	"serverSide":true,
+	"paging":true,
+	"ordering":false,
+	"lengthMenu": [
+            [10,25,50,100,250,500],
+            ['10','25','50','100','250','500']
+        ],
+	"ajax":{
+		url:"/developer/occupation/get-occupation",
+		data:function(d){
+			d.page = (d.start/d.length)+1;
+			d.columns = null;
+			d.order = null;
+		},
+		dataSrc:function(json){
+			recordCollection = json.recordCollection;
+			return json.data;
+		}
+	}
+}).api();
+
+
 var dataTableAllTransactions = $('#datatable-all-transactions').dataTable({
 	"fixedHeader": true,
 	"processing":true,
@@ -2760,6 +2787,204 @@ var userController = (function(){
 
 	};
 })();
+
+
+ 
+var occupationController = (function(){
+		return {
+			checked_Ids:[],				  
+			saveOccupation:function(THIS){	
+			  var $this = $(THIS);
+			  var form = new FormData(THIS);	
+	 
+				$.ajax({
+					url:"/developer/occupationSave",
+					type:"POST",					   
+					dataType:"json",
+					data:form,
+					cache: false,
+					contentType: false, 
+                    processData: false,             
+					success:function(data){	
+					  
+						if(data.status){	
+						 
+						$('#messagemodel .modal-title').text("occupation");	
+						$('#messagemodel .modal-body').html("<div class='alert alert-success'>"+data.msg+"</div>");			
+						$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+						$('#messagemodel').css({'width':'100%'});
+							removeValidationErrors($this);
+							window.location.href ="/developer/occupation"; 
+							
+						}else{
+							$('#messagemodel .modal-title').text("occupation");	
+							$('#messagemodel .modal-body').html("<div class='alert alert-danger'>"+data.msg+"</div>");			
+							$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+							$('#messagemodel').css({'width':'100%'});
+						}
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+					 
+						var response = JSON.parse(jqXHR.responseText);
+						if(response.status){ 
+						
+                            var errors = response.errors;						 
+                            $('.occupation_form').find('.form-group').removeClass('has-error');
+                            $('.occupation_form').find('.help-block').remove();
+                            for (var key in errors) {
+                            if(errors.hasOwnProperty(key)){	
+                            
+                            var el = $('.occupation_form').find('*[name="'+key+'"]');
+                            $('<span class="help-block"><strong>'+errors[key][0]+'</strong></span>').insertAfter(el);
+                            el.closest('.form-group').addClass('has-error');
+                            }
+                            }
+						
+							//showValidationErrors($this,response.errors);						 
+						}else{
+							alert('Something went wrong');
+						}
+						 
+					}
+				}); 
+				 return false;	
+			},
+
+			editSaveOccupation:function(THIS,id){	
+			  var $this = $(THIS);
+			var form = new FormData(THIS);	
+			 
+				$.ajax({
+					url:"/developer/occupationEditSave/"+id,
+					type:"POST",					   
+					dataType:"json",	
+					data:form,
+					 cache: false,
+					contentType: false, 
+                    processData: false,                      
+					success:function(data){
+					 	
+						if(data.status){	
+					 					
+						$('#messagemodel .modal-title').text("occupation");	
+						$('#messagemodel .modal-body').html("<div class='alert alert-success'>"+data.msg+"</div>");			
+						$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+						$('#messagemodel').css({'width':'100%'});
+							removeValidationErrors($this);
+							window.location.href ="/developer/occupation";
+						}else{
+							$('#messagemodel .modal-title').text("Course Content");	
+							$('#messagemodel .modal-body').html("<div class='alert alert-danger'>"+data.msg+"</div>");			
+							$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+							$('#messagemodel').css({'width':'100%'});		 
+							
+						}
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+					 
+						var response = JSON.parse(jqXHR.responseText);
+						if(response.status){ 
+							showValidationErrors($this,response.errors);						 
+						}else{
+							alert('Something went wrong');
+						}
+						 
+					}
+				}); 
+				 return false;	
+			},		 	 
+			 
+			delete:function(id){
+		 
+			 	if( confirm("Are you sure you want to delete?") ) {	
+				  
+				$.ajax({
+					url:"/developer/occupation/delete/"+id,
+					type:"GET",
+				 
+					success:function(response){	
+					 
+					if(response.status){
+						$('#messagemodel .modal-title').text("occupation Delete");	
+						$('#messagemodel .modal-body').html("<div class='alert alert-success'>"+response.msg+"</div>");			
+						$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+						$('#messagemodel').css({'width':'100%'});
+						dataTableOccupation.ajax.reload( null, false );   
+					}else{
+							$('#messagemodel .modal-title').text("occupation Delete");	
+							$('#messagemodel .modal-body').html("<div class='alert alert-danger'>"+response.msg+"</div>");		
+							$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+							$('#messagemodel').css({'width':'100%'});
+					}						
+					},
+					error:function(response){
+					    ;			
+						 alert('some error');
+					}
+				});
+				}
+			},
+			status:function(id,val){		 
+			 if(val==true){
+				if(confirm("Are you sure you want to change the status to Active?")){		
+			 
+				$.ajax({
+					url:"/developer/occupation/status/"+id+"/"+val,
+					type:"GET",					
+					success:function(response){	
+				 
+					if(response.status){
+						$('#messagemodel .modal-title').text("status successfully update");	
+						$('#messagemodel .modal-body').html("<div class='alert alert-success'>"+response.msg+"</div>");			
+						$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+						$('#messagemodel').css({'width':'100%'});
+						dataTableOccupation.ajax.reload( null, false );   
+					}else{
+							$('#messagemodel .modal-title').text("Status successfully update");	
+							$('#messagemodel .modal-body').html("<div class='alert alert-danger'>"+response.msg+"</div>");		
+							$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+							$('#messagemodel').css({'width':'100%'});
+					}						
+					},
+					error:function(response){
+				 
+						 alert('some error');
+					}
+				});
+				}
+				
+				}else{
+					if(confirm("Are you sure you want to change the status to Inactive?")){		
+				 // 
+				$.ajax({
+					url:"/developer/occupation/status/"+id+"/"+val,
+					type:"GET",					
+					success:function(response){	
+					 	
+					if(response.status){
+						$('#messagemodel .modal-title').text("status successfully update");	
+						$('#messagemodel .modal-body').html("<div class='alert alert-success'>"+response.msg+"</div>");			
+						$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+						$('#messagemodel').css({'width':'100%'});
+						dataTableOccupation.ajax.reload( null, false );   
+					}else{
+							$('#messagemodel .modal-title').text("Status successfully update");	
+							$('#messagemodel .modal-body').html("<div class='alert alert-danger'>"+response.msg+"</div>");		
+							$('#messagemodel').modal({keyboard:false,backdrop:'static'});
+							$('#messagemodel').css({'width':'100%'});
+					}						
+					},
+					error:function(response){
+					 	
+						 alert('some error');
+					}
+				});
+				}
+				}
+			}
+			
+	};
+	})(); 
 
 	//category / category
 

@@ -21,7 +21,7 @@
 					@endif					
                     <div class="panel panel-info">
                         <div class="panel-body">
-							<div class="nc-form row form-group{{ $errors->has('parent_category') ? ' has-error' : '' }}">
+							<div class="nc-form form-back row form-group{{ $errors->has('parent_category') ? ' has-error' : '' }}">
 								<form method="POST" action="/developer/editStoreCategory" enctype="multipart/form-data">
 									{{ csrf_field() }}
 										<div class="col-lg-4">

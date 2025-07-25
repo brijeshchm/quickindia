@@ -396,3 +396,18 @@ Route::get('/testimonials/del_icon/{id}', [App\Http\Controllers\TestimonialsCont
 Route::get('testimonials/status/{id}/{val}',[App\Http\Controllers\TestimonialsController::class, 'status'])->middleware('auth');
 /* developer testimonials routing */
 //Route::resource('posts', 'API\PostAPIController');
+
+
+
+
+
+//occupation
+Route::get('occupation', [App\Http\Controllers\OccupationController::class, 'index'])->middleware('auth:developer');
+Route::get('occupationAdd/add', [App\Http\Controllers\OccupationController::class, 'occupationAdd'])->middleware('auth:developer');
+Route::post('occupationSave', [App\Http\Controllers\OccupationController::class, 'occupationSave'])->middleware('auth:developer');
+Route::get('occupationEdit/edit/{id}', [App\Http\Controllers\OccupationController::class, 'Edit'])->middleware('auth:developer');
+Route::post('occupationEditSave/{id}', [App\Http\Controllers\OccupationController::class, 'occupationEditSave'])->middleware('auth:developer');
+Route::get('occupation/status/{id}/{val}', [App\Http\Controllers\OccupationController::class, 'status'])->middleware('auth:developer');
+Route::get('occupation/get-occupation', [App\Http\Controllers\OccupationController::class, 'getOccupationPagination'])->middleware('auth:developer');
+Route::get('occupation/delete/{id}', [App\Http\Controllers\OccupationController::class, 'delete'])->middleware('auth:developer');
+ 

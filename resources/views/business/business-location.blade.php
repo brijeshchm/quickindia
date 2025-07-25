@@ -10,7 +10,20 @@ Find Best It Training Centre near You, Find Best It Training Institute near You,
 Find Only Certified Training Institutes, Coaching Centers near you on Quick India and Get Free counseling, Free Demo Classes, and Get Placement Assistence.
 @endsection
 @section('content')	
-
+<style>
+    .help-block{  
+    color: #ff0000;
+    position: relative;
+    margin-top: 61px;
+    display: block;
+    margin-left: -150px;
+    }
+    .select2-container--bootstrap .select2-selection--single {
+    height: 46px !important;
+    line-height: 1.42857143;
+    padding: 6px 24px 6px 12px;
+}
+</style>
   <main id="main" class="main">
     <section class="section profile">
       <div class="row">
@@ -25,28 +38,29 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
               </ul>
               <div class="tab-content pt-2">
                 <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
-                  <!-- Profile Edit Form -->
-                     <form class="profileSave" method="POST">
-                        <input type="hidden" name="business_id" value="{{$client->id}}">
-                      
-                   <!-- #endregion -->
- 
+               
+                     <form class="buss_location" method="POST" onsubmit="return businessController.saveBusinessLocation(this,<?php echo (isset($client->id)? $client->id:""); ?>)">
+                        <input type="hidden" name="client_id" value="{{$client->id}}">                 
                  
                 <div class="form-group">
                     <label>City:</label>
-                    <select class="form-control">
-                        <option>Ms</option>
-                        <option>Mr</option>
-                        <option>Mrs</option>
+                    <select class="form-control select2-city" name="city_id" onchange="get_zone(this.value);">
+
+                      <option value="">Select City</option>
+                        @if(!empty($citylist))
+                          @foreach($citylist as $city)                       
+                        <option value="{{ $city->id}}">{{$city->city}}</option>
+                        @endforeach
+                        @endif
+                      
                     </select>
                     <label>Zone:</label>
-                     <select class="form-control">
-                        <option>Single</option>
-                        <option>Married</option>
+                     <select class="form-control show_zoneList" name="zone_id" onchange="get_otherZone(this.value);">
+                     
                     </select>
-                </div>
-                
-                
+                    <div class="show_otherInput" ></div>
+
+                </div>                            
                 
             <div class="text-center"> 
                  <input type="hidden" name="savePersonal" value="savePersonalForm">
@@ -63,32 +77,9 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
       <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="datatable-assigned-zones" role="grid" aria-describedby="datatable-assigned-zones_info" style="width: 100%;">
 					<thead>
 					<tr role="row">
-            <th>Zone</th><th>City</th><th>Action</th></tr>
+            <th>City</th><th>Zone</th><th>Action</th></tr>
 					</thead>
-					<tbody>
-            
-          <tr role="row" class="odd"><td class="sorting_1">Jaipur</td><td>Jaipur</td><td><a href="javascript:void(0)" onclick="assignedAreaController.editZoneClient(508)" title="Zone Edit"><i class="bi bi-pencil-square" aria-hidden="true"></i></a>  
-        | <a href="javascript:assignedZoneController.delete(291)"><i class="bi bi-trash" aria-hidden="true"></i></a>
-        </td></tr>
-          
-          <tr role="row" class="even"><td class="sorting_1">Allahabad</td><td>Allahabad</td><td><a href="javascript:void(0)" onclick="assignedAreaController.editZoneClient(395)" title="Zone Edit"><i class="bi bi-pencil-square" aria-hidden="true"></i></a> 
-        
-        
-        </td></tr>
-          
-          <tr role="row" class="odd"><td class="sorting_1">Anakapalle</td><td>Anakapalle</td><td><a href="javascript:void(0)" onclick="assignedAreaController.editZoneClient(383)" title="Zone Edit"><i class="bi bi-pencil-square" aria-hidden="true"></i></a>
-        
-        
-        </td></tr>
-          
-          <tr role="row" class="even"><td class="sorting_1">Ghaziabad</td><td>Ghaziabad</td><td><a href="javascript:void(0)" onclick="assignedAreaController.editZoneClient(291)" title="Zone Edit"><i class="fa fa-refresh" aria-hidden="true"></i></a> | <a href="javascript:assignedZoneController.delete(291)"><i class="fa fa-trash" aria-hidden="true"></i></a></td></tr>
-          
-          <tr role="row" class="odd"><td class="sorting_1">Faridabad</td><td>Faridabad</td><td><a href="javascript:void(0)" onclick="assignedAreaController.editZoneClient(278)" title="Zone Edit"><i class="fa fa-refresh" aria-hidden="true"></i></a> | <a href="javascript:assignedZoneController.delete(278)"><i class="fa fa-trash" aria-hidden="true"></i></a></td></tr>
-          
-          <tr role="row" class="even"><td class="sorting_1">Saket Delhi</td><td>Delhi</td><td><a href="javascript:void(0)" onclick="assignedAreaController.editZoneClient(271)" title="Zone Edit"><i class="bi bi-edit" aria-hidden="true"></i></a> </td></tr>
-        
-        
-        </tbody>
+					 
       
       </table>
                 
@@ -104,4 +95,35 @@ Find Only Certified Training Institutes, Coaching Centers near you on Quick Indi
 
   </main><!-- End #main -->
 
+<script>
+
+function get_zone(city,zone){
+
+	var token = $('input[name=_token]').val();
+	$.ajax({
+	type: "post",	 
+	url: "{{URl('business/zone/getAjaxZone')}}",
+	data: {city:city,zone:zone},
+	headers: {'X-CSRF-TOKEN': token},		
+	cache: false,
+	success: function(data)
+	{
+		$(".show_zoneList").html(data);
+	}
+	});
+}
+
+
+function get_otherZone(other){
+ 
+ if(other == 'Other'){
+		$(".show_otherInput").html('<input class="form-control" value="" name="other" style="margin-top: 22px;">');
+ }else{
+  
+    $(".show_otherInput").html('');
+
+ }
+	 
+}
+</script>
  @endsection

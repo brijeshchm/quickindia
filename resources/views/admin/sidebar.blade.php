@@ -1,17 +1,6 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <!--<li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            
-                        </li>--> 
+                    <ul class="nav" id="side-menu"> 
 		 
 						@if(Auth::user()->current_user_can('client_dashboard'))
 						<li>
@@ -222,6 +211,21 @@
 						 
 							
 							@endif
+							@if(Auth::user()->current_user_can('administrator'))
+							<li>
+								<a href="#"><i class="fa fa-cap fa-fw"></i>Occupation<span class="fa arrow"></span></a>
+								<ul class="nav nav-second-level">
+									<li>
+										<a href="{{url('/developer/occupation')}}"><i class="fa fa-money fa-fw"></i> Occupation</a>
+									</li>					 
+								
+								</ul>
+							</li>
+						 
+							
+							@endif
+
+
 						@if(Auth::user()->current_user_can('administrator') || Auth::user()->current_user_can('all_zone'))						
 							
 							<li>

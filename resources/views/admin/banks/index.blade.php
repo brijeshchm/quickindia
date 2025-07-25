@@ -25,7 +25,7 @@
 						
 						
 						@if(Request::segment(3)=='edit')					
-						<div class="nc-form row form-group{{ $errors->has('banks') ? ' has-error' : '' }}">
+						<div class="nc-form form-back row form-group{{ $errors->has('banks') ? ' has-error' : '' }}">
 								<form method="POST" action="/developer/banks/edit/{{$edit_data->id}}">
 									{{ csrf_field() }}
 									<div class="col-md-12">
@@ -74,7 +74,7 @@
 							@else
 									
 								
-							<div class="nc-form row form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+							<div class="nc-form form-back row form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 								<form method="POST" action="/developer/banks/add">
 									{{ csrf_field() }}
 									<div class="col-md-12">

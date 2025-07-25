@@ -114,11 +114,9 @@
 	</script>
 	<script src="<?php echo asset('admin/vendor/matchHeight/jquery.matchHeight-min.js'); ?>"></script>
     <script src="<?php echo asset('admin/dist/js/script.js'); ?>"></script>
-	        <script src="{{asset('admin/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
-	<script type="text/javascript">
+	<!-- <script src="{{asset('admin/ckeditor/ckeditor.js')}}" type="text/javascript"></script> -->
+	<!-- <script type="text/javascript">
  
-		
-		
 		var _config = {
 			selector:'.tinymce-selector',
   plugins: 'print preview fullpage paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap emoticons',
@@ -129,7 +127,7 @@
 		};
 		tinymce.init(_config);
 		
-	</script>
+	</script> -->
 	<script>
 	 $(".select2-single-city").select2({
         theme: "bootstrap",
